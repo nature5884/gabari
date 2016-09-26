@@ -69,6 +69,7 @@ void FDotLayer::addChild(cocos2d::Node *node)
 
 void FDotLayer::addChild(cocos2d::Node *node, int zorder)
 {
+
     _children.pushBack(node);
     
     sortNodes(_children);
