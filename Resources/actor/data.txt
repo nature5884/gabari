@@ -1,0 +1,119 @@
+
+
+
+// -------------------------------
+// にんげん
+// -------------------------------
+
+// ガバリ
+no		999
+name	gabari
+image	image/actor/gabari/
+speed	0.2f
+action	stand,walk,jump,attack
+hp		100
+end
+
+// 男の子
+no		101
+name	mainHero
+image	image/actor/m_boy/
+speed	0.2f
+action	stand,walk,jump,attack
+hp		50
+end
+
+// 主人公の彼女 
+no		102
+name	mainHeroine
+image	image/actor/m_girl/
+speed	0.2f
+action	stand,walk
+hp		100
+end
+
+// 謎の男
+no		103
+name	nazo
+image	image/actor/nazo/
+speed	0.2f
+action	stand,walk
+hp		100
+end
+
+// サラリーマン
+no		104
+name	sara
+image	image/actor/sara/
+speed	0.2f
+action	stand,walk,jump
+hp		30
+end
+
+// カップル男
+no		105
+name	cap_boy
+image	image/actor/cap_boy/
+speed	0.2f
+action	stand,walk
+hp		100
+end
+
+// カップル女
+no		106
+name	cap_girl
+image	image/actor/cap_girl/
+speed	0.2f
+action	stand,walk
+hp		100
+end
+
+// そこにいた女
+no		107
+name	osoware_girl
+image	image/actor/osoware_girl/
+speed	0.2f
+action	stand,walk
+hp		100
+end
+
+
+// -------------------------------
+// 攻撃するやつ
+// -------------------------------
+
+// 攻撃ハート
+no		200
+name	attackHeart
+image	image/obj/tsumi.png
+speed	1.0f
+hp		3
+end
+
+// 回復ハート
+no		201
+name	recoverHeart
+image	image/obj/tsumi.png
+speed	1.0f
+hp		1
+end
+
+
+// -------------------------------
+// てき
+// -------------------------------
+
+no		300
+name	moja0
+image	image/actor/moja0/
+speed	0.1f
+action	stand,walk
+hp		10
+end
+
+
+
+
+
+
+
