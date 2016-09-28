@@ -39,6 +39,8 @@ bool GameScene::init()
 {
     if ( !FDotLayer::init() ) return false;
     
+    _running = true;
+    
     Sprite *back = Sprite::create();
     back->setTextureRect(Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
     back->setColor(Color3B(214, 212, 198));
@@ -49,11 +51,13 @@ bool GameScene::init()
     for(int i=0; i<3; i++)
     {
         BackGroundCrowd *kumo = BackGroundCrowd::create();
+        kumo->_running = true;
         addChild(kumo);
     }
     
     
     _controller = GameController::getInstance();
+    _controller->_running = true;
     addChild(_controller, 100);
     
     Sprite *biru = Sprite::create("image/back/biru.png");

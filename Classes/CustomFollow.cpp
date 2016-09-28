@@ -68,6 +68,7 @@ void CustomFollow::step(float dt)
 //        pos = Vec2(floor(pos.x), floor(pos.y));
         
         _target->setPosition(pos);
+//        _target->setPosition(Vec2((int)pos.x, (int)pos.y));
         
         // ステージからカメラがはみ出ないようにする
         if(_target->getPositionX() > _origin.x) _target->setPositionX(_origin.x);
