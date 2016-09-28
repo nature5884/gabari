@@ -29,6 +29,8 @@ bool EffectAnimation::init(string file, int frameNum, float delay)
 {
     if ( !Sprite::init() ) return false;
     
+    _running = true;
+    
     initWithFile(file + "0.png");
     
     AnimationManager::addAnimationCache(file, file, frameNum, delay);

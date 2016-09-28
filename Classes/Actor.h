@@ -12,10 +12,12 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "MultiResolution.h"
+#include "FCommon.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
 using namespace std;
+using namespace FGeneral;
 
 class Actor : public Sprite
 {
@@ -61,6 +63,12 @@ public:
     int _preHp;             // 1フレーム前のhp
     bool _isDestroy;          // 消滅したか
     
+    int _attackPow;         // 攻撃力
+    
+    Vec2 _prePos;
+    Vec2 _pos;              // ポジション
+    Vec2 _movedVec;
+    
     Vec2 _forceLimit;
     
     ActorState _state;      // ジャンプ中かとかそういう状態（アニメーションに使う）
@@ -71,8 +79,10 @@ public:
     static Actor *create(int no);
     virtual bool init(int no);
     virtual void update(float delta);
-    bool hitCheck();    // マップとの当たり判定
-    Vec2 hitCheckReturnVec2();
+    
+    int hitCheck();    // マップとの当たり判定
+    Actor *hitCheckActor();
+    Actor *hitCheckActorFromPoint();
     
     void move();    // 座標の移動と当たり判定の処理（移動、ジャンプ等）
     virtual void state();   // アニメーションを状態で推移する

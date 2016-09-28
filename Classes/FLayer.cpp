@@ -29,6 +29,8 @@ bool FLayer::init()
 {
     if ( !Layer::init() ) return false;
     
+    _running = true;
+    
     // タッチ
     _touchListener = EventListenerTouchOneByOne::create();
     _touchListener->onTouchBegan = CC_CALLBACK_2(FLayer::onTouchBegan, this);

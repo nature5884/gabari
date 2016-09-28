@@ -47,7 +47,9 @@ public:
     
     static const int MUTEKI_FRAME;
     static const int ROTATION_SPEED;
-    static const int ATTACK_SPEED;
+    static const float ATTACK_SPEED;
+    
+    Actor *_targetActor;
     
     bool _isMuteki;
     int _mutekiCount;

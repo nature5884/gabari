@@ -29,6 +29,7 @@ bool FDotLayer::init()
 {
     if ( !FLayer::init() ) return false;
     
+    _running = true;
     
     _render = RenderTexture::create(designResolutionSize.width,
                                     designResolutionSize.height,

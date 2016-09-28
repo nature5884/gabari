@@ -12,6 +12,7 @@
 #include "MapManager.h"
 #include "GameController.h"
 #include "EffectAnimation.h"
+#include "ActorManager.h"
 
 const int Actor::JUMP_POW_MAX = 5;
 const int Actor::JUMP_BOOST_MAX = 30;
@@ -35,6 +36,8 @@ Actor *Actor::create(int no)
 
 bool Actor::init(int no)
 {
+    _running = true;
+    
     if ( !Sprite::init() ) return false;
     
     auto dataLoader = ActorDataLoader::getInstance();
@@ -63,7 +66,11 @@ bool Actor::init(int no)
     
     _hp = _data.hp;
     _preHp = _hp;
+    
+    _attackPow = 1;
+    
     scheduleUpdate();
+    
     return true;
 }
 
@@ -149,54 +156,68 @@ void Actor::move()
     
     if(_isAttack) _force = Vec2::ZERO;
     
-    // あたったんだよ
-    bool isHitX = false;
-    bool isHitY = false;
     
-    setPositionX(getPositionX() + _force.x);
+    _prePos = _pos;
     
-    // めり込んでたらちょっとずつもどす。
-    float offsetX = 0.1 * (_force.x > 0 ? -1 : 1);
-    if(_force.x == 0) offsetX = 0.1 * (isFlippedX()?1:-1);
+    _pos += _force;
+    setPosition(Vec2((int)_pos.x, (int)_pos.y));
     
-    while(hitCheck())
+    int hit = -1;
+    int hitCnt = 0;
+    vector<bool> hitDir = {false,false,false,false};
+    
+    do
     {
-        if(_force.x == 0) break;
-        setPositionX(getPositionX() + offsetX);
+        hit = hitCheck();
         
-        isHitX = true;
+        if(hit != -1)
+        {
+            hitDir[hit] = true;
+            hitCnt ++;
+        }
+        
+        if(hit == 0)
+        {
+            _pos.x -= 1;
+        }
+        if(hit == 1)
+        {
+            _pos.y -= 1;
+        }
+        if(hit == 2)
+        {
+            _pos.x += 1;
+        }
+        if(hit == 3)
+        {
+            _pos.y += 1;
+        }
+        
+        setPosition(Vec2((int)_pos.x, (int)_pos.y));
     }
+    while (hit != -1);
     
-    if(isHitX)
+    // 当たった方向
+    if(hitDir[0])     // 左
     {
         kabeHit();
     }
-    
-    // 同じくY
-    setPositionY(getPositionY() + _force.y);
-    auto hitVec = hitCheckReturnVec2();
-    _isLanding = false;
-    
-    float offsetY = 0.1 * (_force.y > 0 ? -1 : 1);
-    while(hitCheck())
+    if(hitDir[1])     // 上
     {
-        if(_force.y == 0) break;
-        setPositionY(getPositionY() + offsetY);
-        isHitY = true;
+        tenjoHit();
+    }
+    if(hitDir[2])     // 右
+    {
+        kabeHit();
+    }
+    if(hitDir[3])     // 下
+    {
+        yukaHit();
     }
     
-    if(isHitY)
+    if(hitCnt == 0)    // 当たってない
     {
-        if(hitVec.y < 0)
-        {
-            yukaHit();
-            _isLanding = true;
-        }
-        else if(hitVec.y > 0)
-        {
-            tenjoHit();
-            _jumpBoost = 0;
-        }
+        _isLanding = false;
     }
     
     // 着地していてボタン押してなかったらjumpBoost回復する
@@ -212,6 +233,8 @@ void Actor::move()
         _force.y += 0.12 * (_force.y > 0 ? -1 : 1);
     
     _move = Vec2::ZERO;
+    
+    _movedVec = _pos - _prePos;
 }
 
 void Actor::state()
@@ -295,7 +318,7 @@ void Actor::attack()
     
 }
 
-bool Actor::hitCheck()
+int Actor::hitCheck()
 {
     MapManager *mapManager = MapManager::getInstance();
     
@@ -314,52 +337,48 @@ bool Actor::hitCheck()
             
             Rect box = getBoundingBox();
             box.origin.x += box.size.width * 0.35;
-            box.size.width = box.size.width * 0.3;
+            box.size.width = box.size.width * 0.6;
             box.origin.y += 2;
             
-            if(box.intersectsRect(tile->getBoundingBox()))
+            auto tileBox = tile->getBoundingBox();
+            if(box.intersectsRect(tileBox))
             {
-                return true;
+                Vec2 myPos = Vec2(box.getMidX(), box.getMidY());
+                Vec2 tilePos = Vec2(tileBox.getMidX(), tileBox.getMidY());
+                
+                Vec2 vec = myPos - tilePos;
+                
+                float inAngle = vec.getAngle() * 180 / M_PI + 90;
+                
+                while(inAngle < 0) inAngle += 360;
+                while(inAngle > 360) inAngle -= 360;
+                
+                // 右
+                if(inAngle >= 45 && inAngle < 135)
+                {
+                    return 2;
+                }
+                // 下
+                else if(inAngle >= 135 && inAngle < 225)
+                {
+                    return 3;
+                }
+                // 左
+                else if(inAngle >= 225 && inAngle < 315)
+                {
+                    return 0;
+                }
+                // 上
+                else
+                {
+                    return 1;
+                }
             }
         }
     }
     
     
-    return false;
-}
-
-Vec2 Actor::hitCheckReturnVec2()
-{
-    MapManager *mapManager = MapManager::getInstance();
-    
-    int gridSize = mapManager->_mapData.gridSize;
-    Vec2 index = Vec2((int)(getPositionX() / gridSize), mapManager->_mapData.mapHeight-1 - (int)(getPositionY() / gridSize));
-    
-    int search = 1;
-    
-    for(int y = -search; y <= search; y++)
-    {
-        for(int x = -search; x <= search; x++)
-        {
-            Sprite *tile = mapManager->_mapData.tileData[index + Vec2(x,y)];
-            if(tile == NULL)
-                continue;
-            
-            Rect box = getBoundingBox();
-            box.origin.x += box.size.width * 0.35;
-            box.size.width = box.size.width * 0.3;
-            box.origin.y += 2;
-            
-            if(box.intersectsRect(tile->getBoundingBox()))
-            {
-                return tile->getPosition() - getPosition();
-            }
-        }
-    }
-    
-    
-    return Vec2::ZERO;
-    
+    return -1;
 }
 
 void Actor::destroy()
@@ -383,7 +402,7 @@ void Actor::destroyEffect()
 
 void Actor::damage(Actor *target)
 {
-    _hp --;
+    _hp -= target->_attackPow;
     
     damageEffect();
 }
@@ -400,12 +419,13 @@ void Actor::kabeHit()
 
 void Actor::yukaHit()
 {
-    
+    _isLanding = true;
+    _jumpBoost = 0;
 }
 
 void Actor::tenjoHit()
 {
-    
+    _jumpBoost = 0;
 }
 
 bool Actor::isActionEnable(string actionName)
@@ -418,6 +438,46 @@ bool Actor::isActionEnable(string actionName)
     return false;
 }
 
+Actor *Actor::hitCheckActor()
+{
+    for(auto child : ActorManager::getInstance()->getChildren())
+    {
+        Actor *actor = (Actor*)child;
+        
+        if(actor->getName() == "") continue;
+        if(actor == this) continue;
+        if(actor->_isDestroy) continue;
+        
+        if(actor->getBoundingBox().intersectsRect(getBoundingBox()))
+        {
+            return actor;
+        }
+        
+    }
+    
+    return NULL;
+}
+
+Actor *Actor::hitCheckActorFromPoint()
+{
+    for(auto child : ActorManager::getInstance()->getChildren())
+    {
+        Actor *actor = (Actor*)child;
+        
+        if(actor->getName() == "") continue;
+        if(actor == this) continue;
+        if(actor->_isDestroy) continue;
+        if(actor->_hp == 0) continue;
+        
+        if(actor->getBoundingBox().containsPoint(getPosition()))
+        {
+            return actor;
+        }
+        
+    }
+    
+    return NULL;
+}
 
 
 
