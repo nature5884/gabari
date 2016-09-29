@@ -34,7 +34,9 @@ namespace FGeneral
         static int getRand(int min, int max);
         static Sprite *createColorSprite(Color3B col);
         static Sprite *createBlack();
+        static Rect intersect(Rect a, Rect b);
     };
+    
     
     enum FDirection
     {

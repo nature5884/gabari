@@ -113,6 +113,20 @@ Sprite *FCommon::createBlack()
     return createColorSprite(Color3B::BLACK);
 }
 
+Rect FCommon::intersect(cocos2d::Rect a, cocos2d::Rect b)
+{
+    float sx = MAX(a.origin.x, b.origin.x);
+    float sy = MAX(a.origin.y, b.origin.y);
+    float ex = MIN(a.origin.x + a.size.width, b.origin.x + b.size.width);
+    float ey = MIN(a.origin.y + a.size.height, b.origin.y + b.size.height);
+    
+    float w = ex - sx;
+    float h = ey - sy;
+    if (w > 0 && h > 0) {
+        return Rect(sx, sy, w, h);
+    }
+    return Rect(0, 0, 0, 0); // 重なっていない
+}
 
 
 

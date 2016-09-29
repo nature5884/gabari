@@ -41,6 +41,8 @@ bool TalkEventLayer::init()
 {
     if ( !Layer::init() ) return false;
     
+    _running = true;
+    
     _black = Sprite::create();
     _black->setTextureRect(Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
     _black->setAnchorPoint(Vec2::ZERO);

@@ -43,9 +43,12 @@ bool GameController::init()
 //    test->setPosition(visibleCenter);
 //    addChild(test);
     
+    _running = true;
+    
     _uiBaseSp = Sprite::create("image/ui/ui_base.png");
     _uiBaseSp->setAnchorPoint(Vec2::ZERO);
     _uiBaseSp->setPosition(Vec2::ZERO);
+    _uiBaseSp->setTextureRect(Rect(0, 0, designResolutionSize.width, _uiBaseSp->getBoundingBox().size.height));
     _uiBaseSp->getTexture()->setAliasTexParameters();
     addChild(_uiBaseSp);
     

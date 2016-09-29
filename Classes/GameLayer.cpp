@@ -30,11 +30,13 @@ bool GameLayer::init()
 {
     if ( !Layer::init() ) return false;
     
+    _running = true;
+    
     auto gameCont = GameController::getInstance();
     
     setPosition(Vec2(4, gameCont->getUIHeight() - 3));
     
-    _actorManager = ActorManager::create();
+    _actorManager = ActorManager::getInstance();
     addChild(_actorManager, 1);
     
     _mapManager = MapManager::getInstance();

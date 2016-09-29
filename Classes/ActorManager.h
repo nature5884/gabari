@@ -27,6 +27,8 @@ public:
     ActorDataLoader *_actorDataLodaer;
     ActorController *_actorController;
     
+    static ActorManager *_instance;
+    static ActorManager *getInstance();
     static ActorManager *create();
     virtual bool init();
     void update(float delta);

@@ -7,10 +7,11 @@
 //
 
 #include "Gabari.h"
+#include "GameController.h"
 
 const int Gabari::MUTEKI_FRAME = 60;
-const int Gabari::ROTATION_SPEED = 2;
-const int Gabari::ATTACK_SPEED = 2;
+const int Gabari::ROTATION_SPEED = 4;
+const float Gabari::ATTACK_SPEED = 1;
 
 Gabari *Gabari::create(int no)
 {
@@ -36,6 +37,13 @@ bool Gabari::init(int no)
     _preIsAttackPushed = false;
     _isAttackPushed = false;
     
+    _isMuteki = false;
+    _mutekiCount = 0;
+    
+    _attackPow = 5;
+    
+    _targetActor = NULL;
+    
     scheduleUpdate();
     return true;
 }
@@ -47,11 +55,19 @@ void Gabari::update(float delta)
     if(_atkMode == ATK_NONE)
     {
         Actor::update(delta);
+        
+        if(getRotation() != 0)
+        {
+            setRotation(getRotation() * 0.95);
+        }
     }
     else
     {
+        _isAttack = true;
+        
         if(_atkMode == ATK_STANDBY)
         {
+//            merikomiBack();
             attackStandby();
         }
         
@@ -63,6 +79,15 @@ void Gabari::update(float delta)
         else if(_atkMode == ATK_AFTER)
         {
             attackAfter();
+        }
+        
+        state();
+        
+        // アクターに刺さっていたら、移動量足す
+        if(_targetActor)
+        {
+            _pos += _targetActor->_movedVec;
+            setPosition(_pos);
         }
     }
     
@@ -92,16 +117,40 @@ void Gabari::attack()
     
     // ボタンを押している間ずっと連続で呼ばれてしまうので、
     // ボタンの切り替わりだけを見る
+    
     bool firstInput = (_preIsAttackPushed != _isAttackPushed);
     
-    if(firstInput)
+    if(firstInput && !_isLanding)
     {
-        if(_atkMode == ATK_NONE) _atkMode = ATK_STANDBY;
+        if(_atkMode == ATK_NONE)
+        {
+            _atkMode = ATK_STANDBY;
+            
+            Vec2 anchorVec = Vec2(0.5, 0.8) - getAnchorPoint();
+            setAnchorPoint(Vec2(0.5, 0.8));
+            
+            Vec2 size = getBoundingBox().size;
+            
+            size.x *= anchorVec.x;
+            size.y *= anchorVec.y;
+            
+            setPosition(getPosition() + size);
+        }
         else if(_atkMode == ATK_STANDBY)
         {
             _force = Vec2::ZERO;
-            _isAttack = true;
             _atkMode = ATK_NOW;
+            
+            
+            Vec2 anchorVec = Vec2(0.5, 0) - Vec2(0.5, 0.8);
+            setAnchorPoint(Vec2(0.5, 0));
+            
+            Vec2 size = getBoundingBox().size;
+            
+            size.x *= anchorVec.x;
+            size.y *= anchorVec.y;
+            
+            setPosition(getPosition() + size);
         }
     }
 }
@@ -111,7 +160,7 @@ void Gabari::regAnim()
     animationRegist("stand", 1, 100);
     animationRegist("walk", 5, 0.1);
     animationRegist("jump", 1, 100);
-    animationRegist("attack", 1, 0.1);
+    animationRegist("attack", 1, 100);
 }
 
 
@@ -119,6 +168,18 @@ void Gabari::regAnim()
 void Gabari::attackStandby()
 {
     int dir = (isFlippedX() ? -1 : 1);
+    
+//    int dir = 0;
+//    
+//    auto gameCtrl = GameController::getInstance();
+//    if(gameCtrl->left())
+//    {
+//        dir = 1;
+//    }
+//    if(gameCtrl->right())
+//    {
+//        dir = -1;
+//    }
     
     setRotation(getRotation() - ROTATION_SPEED * dir);
     
@@ -132,25 +193,83 @@ void Gabari::attackNow()
     float rota = getRotation() - 180 * dir;
     if(rota > 360) rota -= 360;
     else if(rota < 0) rota += 360;
-//    while(!hitCheck())
+    
+    int hanteiCount = 0;
+    int zanzoCount = 1;
+    
+    Actor *hitAct = NULL;
+    
+    while(hitCheckFromPoint() == -1)
     {
-        setPosition(getPosition() + Vec2(sin(rota/180.0*M_PI),
-                                         cos(rota/180.0*M_PI)) * ATTACK_SPEED);
+        _pos = (getPosition() + Vec2(sin(rota/180.0*M_PI),
+                                     cos(rota/180.0*M_PI)) * ATTACK_SPEED);
+        setPosition(_pos);
+        
+        if(hanteiCount % 5 == 0)
+        {
+            Sprite *zanzo = Sprite::createWithTexture(getTexture());
+            zanzo->_running = true;
+            zanzo->setRotation(getRotation());
+            zanzo->setAnchorPoint(getAnchorPoint());
+            zanzo->setFlippedX(isFlippedX());
+            zanzo->setPosition(_pos);
+            getParent()->addChild(zanzo);
+            
+            float duration = 0.04 * zanzoCount;
+            zanzo->runAction(Sequence::create(Spawn::create(EaseBackOut::create(ScaleBy::create(duration, 1.5)),
+                                                            FadeOut::create(duration),
+                                                            NULL),
+                                              RemoveSelf::create(),
+                                              NULL));
+            zanzoCount ++;
+        }
+        
+        hanteiCount ++;
+        
+        hitAct = hitCheckActorFromPoint();
+        if(hitAct != NULL)
+        {
+            break;
+        }
     }
     
-    if(hitCheck())
+    if(hitAct != NULL && hitAct->getName() != "")
+    {
+        hitAct->damage(this);
+        _targetActor = hitAct;
+    }
+    
+    if(hitCheckFromPoint() != -1 || hitAct != NULL)
     {
         _jumpPow = 0;
         _atkMode = ATK_AFTER;
-//        _isAttack = false;
+        _isLanding = true;
     }
     
 }
 
 void Gabari::attackAfter()
 {
-    _atkMode = ATK_NONE;
-    setRotation(0);
+    auto gameCtrl = GameController::getInstance();
+    
+    if(gameCtrl->maru(1) || gameCtrl->right(1) || gameCtrl->left(1))
+    {
+        _targetActor = NULL;
+        _isAttack = false;
+        _atkMode = ATK_NONE;
+        if(getRotation() > 180) setRotation(getRotation() - 360);
+        
+        
+        if(gameCtrl->maru(1))
+        {
+            _jumpPow = Actor::JUMP_POW_MAX;
+        }
+        else
+        {
+            
+        }
+    }
+    
 }
 
 

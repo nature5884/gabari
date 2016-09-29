@@ -32,6 +32,8 @@ bool TalkLabel::init(string str, string fontFile, int fontSize)
 {
     if(!cocos2d::Label::init()) return false;
     
+    _running = true;
+    
     setString("");
     
     TTFConfig ttfConfig(fontFile.c_str(), fontSize, GlyphCollection::DYNAMIC);

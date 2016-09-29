@@ -8,7 +8,18 @@
 
 #include "ActorManager.h"
 #include "Gabari.h"
-#include "WalkerEnemy.h"
+#include "SarariMan.h"
+
+ActorManager *ActorManager::_instance = NULL;
+ActorManager *ActorManager::getInstance()
+{
+    if(_instance == NULL)
+    {
+        _instance = ActorManager::create();
+    }
+    
+    return _instance;
+}
 
 ActorManager *ActorManager::create()
 {
@@ -30,6 +41,8 @@ bool ActorManager::init()
 {
     if ( !Layer::init() ) return false;
     
+    _running = true;
+    
     _actorDataLodaer = ActorDataLoader::getInstance();
     _actorController = ActorController::getInstance();
     
@@ -42,7 +55,7 @@ void ActorManager::update(float delta)
     _actorController->update(delta);
     
     // アクター同士の当たり判定。当っていたらdamage()呼ぶ。
-    damageCheck();
+//    damageCheck();
 }
 
 Actor *ActorManager::createActor(int no, Vec2 pos)
@@ -51,11 +64,11 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     
     if(no == 999) actor = Gabari::create(no);
 //    if(no == 101) actor = MainHero::create(no);
-    else if(no == 104) actor = WalkerEnemy::create(no);
+    else if(no == 104) actor = SarariMan::create(no);
 //    else if(no == 103) actor = NazoMan::create(no);
     else actor = Actor::create(no);
     
-    actor->setPosition(pos);
+    actor->_pos = pos;
     addChild(actor);
     
     return actor;
