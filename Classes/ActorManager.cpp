@@ -8,6 +8,7 @@
 
 #include "ActorManager.h"
 #include "Gabari.h"
+#include "WalkerEnemy.h"
 
 ActorManager *ActorManager::create()
 {
@@ -50,7 +51,7 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     
     if(no == 999) actor = Gabari::create(no);
 //    if(no == 101) actor = MainHero::create(no);
-//    else if(no == 104) actor = SarariMan::create(no);
+    else if(no == 104) actor = WalkerEnemy::create(no);
 //    else if(no == 103) actor = NazoMan::create(no);
     else actor = Actor::create(no);
     
