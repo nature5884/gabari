@@ -11,7 +11,7 @@
 
 const int Gabari::MUTEKI_FRAME = 60;
 const int Gabari::ROTATION_SPEED = 4;
-const float Gabari::ATTACK_SPEED = 2;
+const float Gabari::ATTACK_SPEED = 1;
 
 Gabari *Gabari::create(int no)
 {
@@ -58,7 +58,7 @@ void Gabari::update(float delta)
         
         if(getRotation() != 0)
         {
-            setRotation(getRotation() * 0.6);
+            setRotation(getRotation() * 0.95);
         }
     }
     else
@@ -67,6 +67,7 @@ void Gabari::update(float delta)
         
         if(_atkMode == ATK_STANDBY)
         {
+//            merikomiBack();
             attackStandby();
         }
         
@@ -196,9 +197,9 @@ void Gabari::attackNow()
     int hanteiCount = 0;
     int zanzoCount = 1;
     
-    Actor *hitAct;
+    Actor *hitAct = NULL;
     
-    while(hitCheck() == -1)
+    while(hitCheckFromPoint() == -1)
     {
         _pos = (getPosition() + Vec2(sin(rota/180.0*M_PI),
                                      cos(rota/180.0*M_PI)) * ATTACK_SPEED);
@@ -232,16 +233,17 @@ void Gabari::attackNow()
         }
     }
     
-    if(hitAct)
+    if(hitAct != NULL && hitAct->getName() != "")
     {
         hitAct->damage(this);
         _targetActor = hitAct;
     }
     
-    if(hitCheck() != -1 || hitAct)
+    if(hitCheckFromPoint() != -1 || hitAct != NULL)
     {
         _jumpPow = 0;
         _atkMode = ATK_AFTER;
+        _isLanding = true;
     }
     
 }

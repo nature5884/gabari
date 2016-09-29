@@ -158,8 +158,29 @@ void Actor::move()
     
     
     _prePos = _pos;
-    
     _pos += _force;
+    
+    merikomiBack();
+    
+    // 着地していてボタン押してなかったらjumpBoost回復する
+    if(_isLanding && !GameController::getInstance()->maru())
+    {
+        _jumpBoost = JUMP_BOOST_MAX;
+    }
+    
+    // 力をすこしずつ弱めて惰性にしてる（ちょっとだけ）
+    if(_force.x != 0)
+        _force.x += 0.12 * (_force.x > 0 ? -1 : 1) * (_isLanding ? 1 : 0.4);
+    if(_force.y != 0)
+        _force.y += 0.12 * (_force.y > 0 ? -1 : 1);
+    
+    _move = Vec2::ZERO;
+    
+    _movedVec = _pos - _prePos;
+}
+
+void Actor::merikomiBack()
+{
     setPosition(Vec2((int)_pos.x, (int)_pos.y));
     
     int hit = -1;
@@ -219,22 +240,6 @@ void Actor::move()
     {
         _isLanding = false;
     }
-    
-    // 着地していてボタン押してなかったらjumpBoost回復する
-    if(_isLanding && !GameController::getInstance()->maru())
-    {
-        _jumpBoost = JUMP_BOOST_MAX;
-    }
-    
-    // 力をすこしずつ弱めて惰性にしてる（ちょっとだけ）
-    if(_force.x != 0)
-        _force.x += 0.12 * (_force.x > 0 ? -1 : 1) * (_isLanding ? 1 : 0.4);
-    if(_force.y != 0)
-        _force.y += 0.12 * (_force.y > 0 ? -1 : 1);
-    
-    _move = Vec2::ZERO;
-    
-    _movedVec = _pos - _prePos;
 }
 
 void Actor::state()
@@ -337,7 +342,7 @@ int Actor::hitCheck()
             
             Rect box = getBoundingBox();
             box.origin.x += box.size.width * 0.35;
-            box.size.width = box.size.width * 0.6;
+            box.size.width = box.size.width * 0.8;
             box.origin.y += 2;
             
             auto tileBox = tile->getBoundingBox();
@@ -377,6 +382,63 @@ int Actor::hitCheck()
         }
     }
     
+    
+    return -1;
+}
+
+int Actor::hitCheckFromPoint()
+{
+    MapManager *mapManager = MapManager::getInstance();
+    
+    int gridSize = mapManager->_mapData.gridSize;
+    Vec2 index = Vec2((int)(getPositionX() / gridSize), mapManager->_mapData.mapHeight-1 - (int)(getPositionY() / gridSize));
+    
+    int search = 1;
+    
+    for(int y = -search; y <= search; y++)
+    {
+        for(int x = -search; x <= search; x++)
+        {
+            Sprite *tile = mapManager->_mapData.tileData[index + Vec2(x,y)];
+            if(tile == NULL)
+                continue;
+            
+            auto tileBox = tile->getBoundingBox();
+            if(tileBox.containsPoint(_pos))
+            {
+                Vec2 myPos = _pos;
+                Vec2 tilePos = Vec2(tileBox.getMidX(), tileBox.getMidY());
+                
+                Vec2 vec = myPos - tilePos;
+                
+                float inAngle = vec.getAngle() * 180 / M_PI + 90;
+                
+                while(inAngle < 0) inAngle += 360;
+                while(inAngle > 360) inAngle -= 360;
+                
+                // 右
+                if(inAngle >= 45 && inAngle < 135)
+                {
+                    return 2;
+                }
+                // 下
+                else if(inAngle >= 135 && inAngle < 225)
+                {
+                    return 3;
+                }
+                // 左
+                else if(inAngle >= 225 && inAngle < 315)
+                {
+                    return 0;
+                }
+                // 上
+                else
+                {
+                    return 1;
+                }
+            }
+        }
+    }
     
     return -1;
 }

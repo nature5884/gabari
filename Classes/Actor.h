@@ -81,8 +81,11 @@ public:
     virtual void update(float delta);
     
     int hitCheck();    // マップとの当たり判定
+    int hitCheckFromPoint();    // マップとの当たり判定（ポジションver)
     Actor *hitCheckActor();
     Actor *hitCheckActorFromPoint();
+    
+    void merikomiBack();
     
     void move();    // 座標の移動と当たり判定の処理（移動、ジャンプ等）
     virtual void state();   // アニメーションを状態で推移する
