@@ -359,6 +359,8 @@ int Actor::hitCheck()
             
             auto topTile = mapManager->_mapData.tileData[index + Vec2(x, y-1)];
             auto bottomTile = mapManager->_mapData.tileData[index + Vec2(x, y+1)];
+            auto rightTile = mapManager->_mapData.tileData[index + Vec2(x+1, y)];
+            auto leftTile = mapManager->_mapData.tileData[index + Vec2(x-1, y)];
             
             auto tileBox = tile->getBoundingBox();
             tileBox.size = Size(mapManager->_mapData.gridSize, mapManager->_mapData.gridSize);
@@ -377,12 +379,12 @@ int Actor::hitCheck()
                 while(inAngle > 360) inAngle -= 360;
                 
                 // 右
-                if(inAngle >= 45 && inAngle <= 135)
+                if(inAngle >= 45 && inAngle <= 135 && rightTile == NULL)
                 {
                     return 2;
                 }
                 // 左
-                else if(inAngle >= 225 && inAngle <= 315)
+                else if(inAngle >= 225 && inAngle <= 315 && leftTile == NULL)
                 {
                     return 0;
                 }
@@ -414,7 +416,7 @@ int Actor::hitCheckFromPoint()
     int gridSize = mapManager->_mapData.gridSize;
     Vec2 index = Vec2((int)(centerPos.x / gridSize), mapManager->_mapData.mapHeight-1 - (int)(centerPos.y / gridSize));
     
-    int search = 1;
+    int search = 4;
     
     for(int y = -search; y <= search; y++)
     {

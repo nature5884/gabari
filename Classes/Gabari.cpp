@@ -77,6 +77,9 @@ void Gabari::update(float delta)
         {
 //            merikomiBack();
             attackStandby();
+            
+            merikomiBack();
+            
         }
         
         else if(_atkMode == ATK_NOW)
@@ -96,6 +99,8 @@ void Gabari::update(float delta)
         {
             _pos += _targetActor->_movedVec;
             setPosition(_pos);
+            
+            merikomiBack();
         }
     }
     
@@ -200,7 +205,6 @@ void Gabari::attackStandby()
     if(getRotation() > 360) setRotation(getRotation() - 360);
     if(getRotation() < 0) setRotation(getRotation() + 360);
     
-    merikomiBack();
 }
 
 void Gabari::attackNow()
@@ -228,7 +232,7 @@ void Gabari::attackNow()
             zanzo->setRotation(getRotation());
             zanzo->setAnchorPoint(getAnchorPoint());
             zanzo->setFlippedX(isFlippedX());
-            zanzo->setPosition(_pos);
+            zanzo->setPosition(getPosition());
             getParent()->addChild(zanzo);
             
             float duration = 0.04 * zanzoCount;
