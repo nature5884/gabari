@@ -14,6 +14,7 @@
 #include "MultiResolution.h"
 #include "FCommon.h"
 #include "Actor.h"
+#include "GabariScope.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -45,6 +46,8 @@ public:
     void attackNow();
     void attackAfter();
     
+    void scopeMove();
+    
     static const int MUTEKI_FRAME;
     static const int ROTATION_SPEED;
     static const float ATTACK_SPEED;
@@ -57,6 +60,8 @@ public:
     AttackMode _atkMode;
     bool _isAttackPushed;
     bool _preIsAttackPushed;
+    
+    GabariScope *_scope;
 };
 
 #endif /* defined(__Gabari__Gabari__) */

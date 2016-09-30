@@ -58,7 +58,6 @@ bool GameScene::init()
     
     _controller = GameController::getInstance();
     _controller->_running = true;
-    addChild(_controller, 100);
     
     Sprite *biru = Sprite::create("image/back/biru.png");
     biru->setAnchorPoint(Vec2::ZERO);
@@ -68,6 +67,7 @@ bool GameScene::init()
     _gameLayer = GameLayer::create();
     addChild(_gameLayer);
     
+    addChild(_controller, 100);
     
     // トークのアレ
     _talkEventLayer = TalkEventLayer::getInstance();

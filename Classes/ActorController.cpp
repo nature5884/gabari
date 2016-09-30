@@ -78,6 +78,10 @@ if(!_targetActor || _targetActor->_isDestroy) return;
             
         }
     }
+    else if(!_targetActor->_isLanding)
+    {
+        _targetActor->_jumpBoost = 0;
+    }
 }
 
 

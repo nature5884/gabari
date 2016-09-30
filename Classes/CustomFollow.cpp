@@ -76,8 +76,8 @@ void CustomFollow::step(float dt)
             _target->setPositionX(-_stageSize.width + designResolutionSize.width + _origin.x);
         
         if(_target->getPositionY() > _origin.y) _target->setPositionY(_origin.y);
-        if(_target->getPositionY() < -_stageSize.height + designResolutionSize.height - _origin.y)
-            _target->setPositionY(-_stageSize.height + designResolutionSize.height - _origin.y);
+        if(_target->getPositionY() < -_stageSize.height + designResolutionSize.height)
+            _target->setPositionY(-_stageSize.height + designResolutionSize.height);
         
         
     }

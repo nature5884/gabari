@@ -45,7 +45,7 @@ void SarariMan::update(float delta)
 
 void SarariMan::kabeHit()
 {
-    log("kabe");
+//    log("kabe");
     
     setFlippedX(!isFlippedX());
     _force.x *= -1;
