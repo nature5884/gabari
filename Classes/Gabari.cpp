@@ -10,7 +10,7 @@
 #include "GameController.h"
 
 const int Gabari::MUTEKI_FRAME = 60;
-const int Gabari::ROTATION_SPEED = 4;
+const int Gabari::ROTATION_SPEED = 3;
 const float Gabari::ATTACK_SPEED = 1;
 
 Gabari *Gabari::create(int no)
@@ -44,12 +44,20 @@ bool Gabari::init(int no)
     
     _targetActor = NULL;
     
+    _scope = GabariScope::create();
+    _scope->setPosition(getBoundingBox().size/2);
+    getParent()->addChild(_scope);
+    
     scheduleUpdate();
     return true;
 }
 
 void Gabari::update(float delta)
 {
+    
+    scopeMove();
+    
+    
     _preIsAttackPushed = _isAttackPushed;
     
     if(_atkMode == ATK_NONE)
@@ -69,6 +77,9 @@ void Gabari::update(float delta)
         {
 //            merikomiBack();
             attackStandby();
+            
+            merikomiBack();
+            
         }
         
         else if(_atkMode == ATK_NOW)
@@ -88,6 +99,8 @@ void Gabari::update(float delta)
         {
             _pos += _targetActor->_movedVec;
             setPosition(_pos);
+            
+            merikomiBack();
         }
     }
     
@@ -135,11 +148,17 @@ void Gabari::attack()
             size.y *= anchorVec.y;
             
             setPosition(getPosition() + size);
+            
+//            Director::getInstance()->setAnimationInterval(1/30.0f);
+//            Director::getInstance()->getScheduler()->setTimeScale(0.5);
         }
         else if(_atkMode == ATK_STANDBY)
         {
             _force = Vec2::ZERO;
             _atkMode = ATK_NOW;
+            
+//            Director::getInstance()->setAnimationInterval(1/60.0f);
+//            Director::getInstance()->getScheduler()->setTimeScale(1);
             
             
             Vec2 anchorVec = Vec2(0.5, 0) - Vec2(0.5, 0.8);
@@ -158,7 +177,7 @@ void Gabari::attack()
 void Gabari::regAnim()
 {
     animationRegist("stand", 1, 100);
-    animationRegist("walk", 5, 0.1);
+    animationRegist("walk", 5, 0.06);
     animationRegist("jump", 1, 100);
     animationRegist("attack", 1, 100);
 }
@@ -185,6 +204,7 @@ void Gabari::attackStandby()
     
     if(getRotation() > 360) setRotation(getRotation() - 360);
     if(getRotation() < 0) setRotation(getRotation() + 360);
+    
 }
 
 void Gabari::attackNow()
@@ -212,11 +232,11 @@ void Gabari::attackNow()
             zanzo->setRotation(getRotation());
             zanzo->setAnchorPoint(getAnchorPoint());
             zanzo->setFlippedX(isFlippedX());
-            zanzo->setPosition(_pos);
+            zanzo->setPosition(getPosition());
             getParent()->addChild(zanzo);
             
             float duration = 0.04 * zanzoCount;
-            zanzo->runAction(Sequence::create(Spawn::create(EaseBackOut::create(ScaleBy::create(duration, 1.5)),
+            zanzo->runAction(Sequence::create(Spawn::create(//EaseBackOut::create(ScaleBy::create(duration, 1.5)),
                                                             FadeOut::create(duration),
                                                             NULL),
                                               RemoveSelf::create(),
@@ -271,6 +291,59 @@ void Gabari::attackAfter()
     }
     
 }
+
+
+void Gabari::scopeMove()
+{
+    
+    _scope->rotateScope(getRotation());
+    auto scopeMove = (getPosition() - _scope->getPosition()) / 10;
+    _scope->setPosition(_scope->getPosition() + scopeMove);
+    
+    
+    if(_atkMode == ATK_STANDBY)
+    {
+        int opa = (_scope->getOpacity() + 1) * 1.5;
+        if(opa > 255) opa = 255;
+        
+        _scope->setOpacity(opa);
+    }
+    else
+    {
+        int opa = _scope->getOpacity() * 0.95;
+        if(opa < 0) opa = 0;
+        
+        _scope->setOpacity(opa);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

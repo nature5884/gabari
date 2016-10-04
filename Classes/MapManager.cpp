@@ -101,11 +101,12 @@ void MapManager::transitionMap(int mapNo)
                 if(d == 1)
                 {
                     _mapData.tileData[index] = chip;
+//                    chip->setAnchorPoint(Vec2(0, 0));
                 }
                 
                 if(d != 1)
                 {
-                    chip->setPosition(chip->getPosition() + Vec2(0, +3));
+                    chip->setPosition(chip->getPosition() + Vec2(0, 0));
                 }
             }
         }
