@@ -57,6 +57,10 @@ void Gabari::update(float delta)
     
     scopeMove();
     
+//    if(_isLanding && !_move.isZero())
+//    {
+//        _jumpPow = Actor::JUMP_POW_MAX;
+//    }
     
     _preIsAttackPushed = _isAttackPushed;
     
