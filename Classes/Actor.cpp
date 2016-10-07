@@ -102,6 +102,9 @@ void Actor::update(float delta)
     state();
     move();
     
+    
+    
+    
     if(!_isDestroy && _hp <= 0)
     {
         destroy();

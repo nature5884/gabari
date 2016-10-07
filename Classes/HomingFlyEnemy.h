@@ -21,6 +21,9 @@ public:
     
     void homing();
     
+    int cnt;
+    
+    
 };
 
 #endif /* HomingFlyEnemy_hpp */
