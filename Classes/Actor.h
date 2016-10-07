@@ -62,6 +62,7 @@ public:
     int _hp;                // HP
     int _preHp;             // 1フレーム前のhp
     bool _isDestroy;          // 消滅したか
+    bool _isKinematic;      // 重力無視する？
     
     int _attackPow;         // 攻撃力
     

@@ -70,6 +70,8 @@ bool Actor::init(int no)
     
     _attackPow = 1;
     
+    _isKinematic = false;
+    
     scheduleUpdate();
     
     return true;
@@ -101,7 +103,7 @@ void Actor::animationRegist(string actionName, int frameNum, float delay)
 void Actor::update(float delta)
 {
     state();
-    move();
+    if(!_isKinematic) move();
     
     
     

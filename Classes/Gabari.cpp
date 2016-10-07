@@ -165,8 +165,8 @@ void Gabari::attack()
 //            Director::getInstance()->getScheduler()->setTimeScale(1);
             
             
-            Vec2 anchorVec = Vec2(0.5, 0) - Vec2(0.5, 0.8);
-            setAnchorPoint(Vec2(0.5, 0));
+            Vec2 anchorVec = Vec2(0.5, 0.3) - Vec2(0.5, 0.8);
+            setAnchorPoint(Vec2(0.5, 0.3));
             
             Vec2 size = getBoundingBox().size;
             
