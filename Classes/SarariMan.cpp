@@ -35,6 +35,7 @@ bool SarariMan::init(int no)
 
 void SarariMan::update(float delta)
 {
+    
     if(!_isDestroy)
     {
         _move.x = _data.speed * (isFlippedX()?-1:1);

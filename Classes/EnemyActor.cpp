@@ -38,6 +38,7 @@ bool EnemyActor::init(int no)
 
 void EnemyActor::update(float delta)
 {
+    
     Actor::update(delta);
 }
 
