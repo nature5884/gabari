@@ -137,7 +137,7 @@ void Gabari::attack()
     
     bool firstInput = (_preIsAttackPushed != _isAttackPushed);
     
-    if(firstInput && !_isLanding)
+    if(firstInput)// && !_isLanding)
     {
         if(_atkMode == ATK_NONE)
         {
@@ -284,9 +284,11 @@ void Gabari::attackAfter()
         if(getRotation() > 180) setRotation(getRotation() - 360);
         
         
+        _jumpPow = Actor::JUMP_POW_MAX;
+        
         if(gameCtrl->maru(1))
         {
-            _jumpPow = Actor::JUMP_POW_MAX;
+            
         }
         else
         {
