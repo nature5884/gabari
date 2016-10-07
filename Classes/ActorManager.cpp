@@ -9,8 +9,6 @@
 #include "ActorManager.h"
 #include "Gabari.h"
 #include "SarariMan.h"
-#include "HomingFlyEnemy.h"
-#include "DossunEnemy.h"
 
 ActorManager *ActorManager::_instance = NULL;
 ActorManager *ActorManager::getInstance()
@@ -64,14 +62,17 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
 {
     Actor *actor;
     
-    if(no == 999) actor = Gabari::create(no);
-//    if(no == 101) actor = MainHero::create(no);
-    else if(no == 104) actor = HomingFlyEnemy::create(no);
-//    else if(no == 103) actor = NazoMan::create(no);
-    else actor = Actor::create(no);
+    
+    if(no == 999) actor = new Gabari();
+    else if(no == 104) actor = new SarariMan();
+    else actor = new Actor();
+    
+    addChild(actor);
+    
+    actor->init(no);
+    actor->autorelease();
     
     actor->_pos = pos;
-    addChild(actor);
     
     return actor;
 }

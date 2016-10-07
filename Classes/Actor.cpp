@@ -61,6 +61,7 @@ bool Actor::init(int no)
     _isDestroy = false;
     
     _forceLimit = Vec2(1.2f, GRAVITY);
+//    _forceLimit = Vec2::ONE;
     
     _kind = PLAYER;
     
@@ -186,14 +187,13 @@ void Actor::merikomiBack()
 {
     setPosition(Vec2((int)_pos.x, (int)_pos.y));
     
-    int hit = -1;
+    int hit = 0;
     int hitCnt = 0;
     vector<bool> hitDir = {false,false,false,false};
     
-    do
+    
+    while ((hit = hitCheck()) != -1)
     {
-        hit = hitCheck();
-        
         if(hit != -1)
         {
             hitDir[hit] = true;
@@ -218,8 +218,9 @@ void Actor::merikomiBack()
         }
         
         setPosition(Vec2((int)_pos.x, (int)_pos.y));
+        
+        if(hitCnt > 60) break;
     }
-    while (hit != -1);
     
     // 当たった方向
     if(hitDir[0])     // 左
@@ -239,9 +240,18 @@ void Actor::merikomiBack()
         yukaHit();
     }
     
-    if(hitCnt == 0)    // 当たってない
+    if(!hitDir[3])    // 当たってない
     {
         _isLanding = false;
+    }
+    
+    if(getName() == "gabari")
+    {
+        for(int i=0; i<4; i++)
+        {
+            if(hitDir[i]) printf("%d", i);
+        }
+        printf("\n");
     }
 }
 
@@ -330,12 +340,15 @@ int Actor::hitCheck()
 {
     MapManager *mapManager = MapManager::getInstance();
     
+    auto box = getBoundingBox();
+    Vec2 centerPos = Vec2(box.getMidX(), box.getMidY());
+    
     int gridSize = mapManager->_mapData.gridSize;
-    Vec2 index = Vec2((int)(getPositionX() / gridSize), mapManager->_mapData.mapHeight-1 - (int)(getPositionY() / gridSize));
+    Vec2 index = Vec2((int)(centerPos.x / gridSize), mapManager->_mapData.mapHeight-1 - (int)(centerPos.y / gridSize));
     
-    int search = 1;
+    int search = 4;
     
-    for(int y = -search; y <= search; y++)
+    for(int y = search; y >= -search; y--)
     {
         for(int x = -search; x <= search; x++)
         {
@@ -343,18 +356,25 @@ int Actor::hitCheck()
             if(tile == NULL)
                 continue;
             
-            Rect box = getBoundingBox();
-            box.origin.x += box.size.width * 0.35;
-            box.size.width = box.size.width * 0.8;
-            box.origin.y += 2;
+//            box.origin.x += box.size.width * 0.35;
+//            box.size.width = box.size.width * 0.8;
+//            box.origin.y += 1;
+            
+            auto topTile = mapManager->_mapData.tileData[index + Vec2(x, y-1)];
+            auto bottomTile = mapManager->_mapData.tileData[index + Vec2(x, y+1)];
+            auto rightTile = mapManager->_mapData.tileData[index + Vec2(x+1, y)];
+            auto leftTile = mapManager->_mapData.tileData[index + Vec2(x-1, y)];
             
             auto tileBox = tile->getBoundingBox();
-            if(box.intersectsRect(tileBox))
+            tileBox.size = Size(mapManager->_mapData.gridSize, mapManager->_mapData.gridSize);
+            
+            if(tileBox.intersectsRect(box))
             {
                 Vec2 myPos = Vec2(box.getMidX(), box.getMidY());
                 Vec2 tilePos = Vec2(tileBox.getMidX(), tileBox.getMidY());
                 
                 Vec2 vec = myPos - tilePos;
+//                Vec2 vec = tilePos - myPos;
                 
                 float inAngle = vec.getAngle() * 180 / M_PI + 90;
                 
@@ -362,22 +382,22 @@ int Actor::hitCheck()
                 while(inAngle > 360) inAngle -= 360;
                 
                 // 右
-                if(inAngle >= 45 && inAngle < 135)
+                if(inAngle >= 45 && inAngle <= 135 && rightTile == NULL)
                 {
                     return 2;
                 }
-                // 下
-                else if(inAngle >= 135 && inAngle < 225)
-                {
-                    return 3;
-                }
                 // 左
-                else if(inAngle >= 225 && inAngle < 315)
+                else if(inAngle >= 225 && inAngle <= 315 && leftTile == NULL)
                 {
                     return 0;
                 }
+                // 下
+                else if(inAngle > 135 && inAngle < 225 && topTile == NULL)
+                {
+                    return 3;
+                }
                 // 上
-                else
+                else if((inAngle > 315 || inAngle < 45) && bottomTile == NULL)
                 {
                     return 1;
                 }
@@ -393,10 +413,13 @@ int Actor::hitCheckFromPoint()
 {
     MapManager *mapManager = MapManager::getInstance();
     
-    int gridSize = mapManager->_mapData.gridSize;
-    Vec2 index = Vec2((int)(getPositionX() / gridSize), mapManager->_mapData.mapHeight-1 - (int)(getPositionY() / gridSize));
+    auto box = getBoundingBox();
+    Vec2 centerPos = Vec2(box.getMidX(), box.getMidY());
     
-    int search = 1;
+    int gridSize = mapManager->_mapData.gridSize;
+    Vec2 index = Vec2((int)(centerPos.x / gridSize), mapManager->_mapData.mapHeight-1 - (int)(centerPos.y / gridSize));
+    
+    int search = 4;
     
     for(int y = -search; y <= search; y++)
     {
@@ -407,6 +430,8 @@ int Actor::hitCheckFromPoint()
                 continue;
             
             auto tileBox = tile->getBoundingBox();
+            tileBox.size = Size(mapManager->_mapData.gridSize, mapManager->_mapData.gridSize);
+            
             if(tileBox.containsPoint(_pos))
             {
                 Vec2 myPos = _pos;
