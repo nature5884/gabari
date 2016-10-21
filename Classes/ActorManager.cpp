@@ -10,6 +10,8 @@
 #include "Gabari.h"
 #include "SarariMan.h"
 
+#include "UsagiEnemy.h"
+
 ActorManager *ActorManager::_instance = NULL;
 ActorManager *ActorManager::getInstance()
 {
@@ -64,7 +66,7 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     
     
     if(no == 999) actor = new Gabari();
-    else if(no == 104) actor = new SarariMan();
+    else if(no == 104) actor = new UsagiEnemy();
     else actor = new Actor();
     
     addChild(actor);
