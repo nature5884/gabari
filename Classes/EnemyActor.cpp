@@ -38,8 +38,13 @@ bool EnemyActor::init(int no)
 
 void EnemyActor::update(float delta)
 {
-    
     Actor::update(delta);
+    
+    auto hitAct = hitCheckActor();
+    if(hitAct && hitAct->_kind == PLAYER)
+    {
+        hitAct->damage(this);
+    }
 }
 
 void EnemyActor::damage(Actor *actor)

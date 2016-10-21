@@ -117,6 +117,7 @@ void Gabari::damage(Actor *actor)
     {
         return;
     }
+    if(_atkMode != ATK_NONE) return;
     
     if(_isMuteki) return;
     
@@ -137,7 +138,7 @@ void Gabari::attack()
     
     bool firstInput = (_preIsAttackPushed != _isAttackPushed);
     
-    if(firstInput && !_isLanding)
+    if(firstInput)// && !_isLanding)
     {
         if(_atkMode == ATK_NONE)
         {
@@ -165,8 +166,8 @@ void Gabari::attack()
 //            Director::getInstance()->getScheduler()->setTimeScale(1);
             
             
-            Vec2 anchorVec = Vec2(0.5, 0) - Vec2(0.5, 0.8);
-            setAnchorPoint(Vec2(0.5, 0));
+            Vec2 anchorVec = Vec2(0.5, 0.3) - Vec2(0.5, 0.8);
+            setAnchorPoint(Vec2(0.5, 0.3));
             
             Vec2 size = getBoundingBox().size;
             
@@ -284,9 +285,11 @@ void Gabari::attackAfter()
         if(getRotation() > 180) setRotation(getRotation() - 360);
         
         
+        _jumpPow = Actor::JUMP_POW_MAX;
+        
         if(gameCtrl->maru(1))
         {
-            _jumpPow = Actor::JUMP_POW_MAX;
+            
         }
         else
         {
