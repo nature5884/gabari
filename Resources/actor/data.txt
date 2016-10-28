@@ -20,7 +20,7 @@ name	huguRobo
 image	image/actor/hugu/
 speed	0.0f
 action	stand,attack
-hp		50
+hp		1
 end
 
 // 主人公の彼女 
@@ -36,7 +36,7 @@ end
 no		103
 name	kameRobo
 image	image/actor/kame/
-speed	0.2f
+speed	0.11f
 action	stand,walk,attack
 hp		100
 end

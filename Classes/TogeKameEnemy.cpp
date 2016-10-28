@@ -1,16 +1,16 @@
 //
-//  KameEnemy.cpp
+//  TogeKameEnemy.cpp
 //  Gabari
 //
-//  Created by ¬—Ñr‘¾˜Y on 2016/10/07.
+//  Created by ¬—Ñr‘¾˜Y on 2016/10/28.
 //
 //
 
-#include "KameEnemy.h"
+#include "TogeKameEnemy.h"
 
-KameEnemy *KameEnemy::create(int no)
+TogeKameEnemy *TogeKameEnemy::create(int no)
 {
-	KameEnemy *pRet = new KameEnemy();
+	TogeKameEnemy *pRet = new TogeKameEnemy();
 
 	if (pRet && pRet->init(no))
 	{
@@ -25,28 +25,27 @@ KameEnemy *KameEnemy::create(int no)
 	}
 }
 
-bool KameEnemy::init(int no)
+bool TogeKameEnemy::init(int no)
 {
 	if (!EnemyActor::init(no))
 	{
 		return false;
 	}
 
-	_hp  = _recoverHp = 10000;
+	_hp = 10000;
 
 	this->scheduleUpdate();
 	return true;
 }
 
-void KameEnemy::regAnim()
+void TogeKameEnemy::regAnim()
 {
 	animationRegist("stand", 1, 100);
 	animationRegist("walk", 2, 0.5);
 	animationRegist("attack", 5, 0.5);
-	//animationRegist("damage", 1, 600);
 }
 
-void KameEnemy::update(float delta)
+void TogeKameEnemy::update(float delta)
 {
 	if (!_isDestroy)
 	{
@@ -56,8 +55,13 @@ void KameEnemy::update(float delta)
 	EnemyActor::update(delta);
 }
 
-void KameEnemy::kabeHit()
+void TogeKameEnemy::kabeHit()
 {
 	setFlippedX(!isFlippedX());
 	_force.x *= -1;
+}
+
+void TogeKameEnemy::damage()
+{
+	_hp = 10000;
 }
