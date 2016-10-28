@@ -32,8 +32,13 @@ bool TogeEnemy::init(int no)
 		return false;
 	}
 
-
+	_isKinematic = true;
 
 	this->scheduleUpdate();
 	return true;
+}
+
+void TogeEnemy::update(float delta)
+{
+	EnemyActor::update(delta);
 }

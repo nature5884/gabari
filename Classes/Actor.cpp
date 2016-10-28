@@ -58,6 +58,7 @@ bool Actor::init(int no)
     _state = STAND;
     _preState = WALK;
     _isAttack = false;
+	_isDamage = false;
     _isDestroy = false;
     
     _forceLimit = Vec2(1.2f, GRAVITY);
@@ -83,6 +84,7 @@ void Actor::regAnim()
     animationRegist("walk", 4, 0.1);
     animationRegist("jump", 1, 100);
     animationRegist("attack", 2, 0.1);
+	animationRegist("damage", 1, 30);
 }
 
 void Actor::animationRegist(string actionName, int frameNum, float delay)
@@ -284,6 +286,11 @@ void Actor::state()
     {
         _state = ATTACK;
     }
+
+	if (_isDamage)
+	{
+		_state = DAMAGE;
+	}
     
     if(_preState != _state)
     {
@@ -325,6 +332,19 @@ void Actor::state()
                                             NULL)); // 仮でwalkのアニメーションつかうわ
                 }
                 break;
+
+			case DAMAGE:
+				if (isActionEnable("damage"))
+				{
+					runAction(Sequence::create(AnimationManager::createRepeat(_data.name + "damage", 1),
+											CallFunc::create([=]()
+															{
+																_isDamage = false;
+																_state = STAND;
+															}),
+											NULL));
+				}
+				break;
                 
             default:
                 break;
@@ -501,7 +521,7 @@ void Actor::damage(Actor *target)
 
 void Actor::damageEffect()
 {
-    
+	//_isDamage = true;
 }
 
 void Actor::kabeHit()

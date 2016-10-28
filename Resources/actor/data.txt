@@ -1,4 +1,4 @@
-
+﻿
 
 
 // -------------------------------
@@ -14,12 +14,12 @@ action	stand,walk,jump,attack
 hp		100
 end
 
-// 男の子
+// フグロボ
 no		101
-name	mainHero
-image	image/actor/m_boy/
-speed	0.2f
-action	stand,walk,jump,attack
+name	huguRobo
+image	image/actor/hugu/
+speed	0.0f
+action	stand,attack
 hp		50
 end
 
@@ -32,12 +32,12 @@ action	stand,walk
 hp		100
 end
 
-// 謎の男
+// カメロボ
 no		103
-name	nazo
-image	image/actor/nazo/
+name	kameRobo
+image	image/actor/kame/
 speed	0.2f
-action	stand,walk
+action	stand,walk,attack
 hp		100
 end
 

@@ -18,12 +18,7 @@ public:
 	static TogeEnemy *create(int no);
 	bool init(int no);
 	void update(float delta);
-
-	void homing();
-
-	int cnt;
-
-
+	
 };
 
 #endif 

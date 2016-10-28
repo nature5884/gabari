@@ -9,6 +9,8 @@
 #include "ActorManager.h"
 #include "Gabari.h"
 #include "SarariMan.h"
+#include "HuguEnemy.h"
+#include "KameEnemy.h"
 
 ActorManager *ActorManager::_instance = NULL;
 ActorManager *ActorManager::getInstance()
@@ -64,6 +66,8 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     
     
     if(no == 999) actor = new Gabari();
+	else if (no == 101) actor = new HuguEnemy();
+	else if (no == 103) actor = new KameEnemy();
     else if(no == 104) actor = new SarariMan();
     else actor = new Actor();
     
