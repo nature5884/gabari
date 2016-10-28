@@ -46,6 +46,7 @@ public:
         WALK,
         JUMP,
         ATTACK,
+		DAMAGE,
     };
     
     
@@ -60,6 +61,7 @@ public:
     int _jumpBoost;         // ジャンプふんばり力
     bool _isLanding;        // 着地してるか
     bool _isAttack;         // 攻撃中か
+	bool _isDamage;
     int _hp;                // HP
     int _preHp;             // 1フレーム前のhp
     bool _isDestroy;          // 消滅したか
