@@ -11,6 +11,9 @@
 #include "SarariMan.h"
 
 #include "UsagiEnemy.h"
+#include "MassuguToriEnemy.h"
+#include "HomingToriEnemy.h"
+#include "HassyaDaiEnemy.h"
 
 ActorManager *ActorManager::_instance = NULL;
 ActorManager *ActorManager::getInstance()
@@ -66,7 +69,7 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     
     
     if(no == 999) actor = new Gabari();
-    else if(no == 104) actor = new UsagiEnemy();
+    else if(no == 104) actor = new HassyaDaiEnemy();
     else actor = new Actor();
     
     addChild(actor);
@@ -75,7 +78,7 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     actor->autorelease();
     
     actor->_pos = pos;
-    
+    actor->setPosition(pos);
     return actor;
 }
 

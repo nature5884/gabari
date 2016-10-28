@@ -34,6 +34,7 @@ bool UsagiEnemy::init(int no)
     _waitCnt = 0;
     _WAITMAX = 120;
     
+    
     this->scheduleUpdate();
     return true;
 }
@@ -41,6 +42,8 @@ bool UsagiEnemy::init(int no)
 void UsagiEnemy::update(float delta)
 {
     EnemyActor::update(delta);
+    
+    log("%f,%f",this->getPositionX(),this->getPositionY());
     
     // when _waitCnt is 0 to Jump
     if(!_isDestroy)

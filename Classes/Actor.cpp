@@ -74,6 +74,7 @@ bool Actor::init(int no)
     
     scheduleUpdate();
     
+    
     return true;
 }
 
@@ -187,6 +188,9 @@ void Actor::move()
 
 void Actor::merikomiBack()
 {
+    
+    
+    
     setPosition(Vec2((int)_pos.x, (int)_pos.y));
     
     int hit = 0;

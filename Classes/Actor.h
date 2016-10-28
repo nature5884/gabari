@@ -48,6 +48,7 @@ public:
         ATTACK,
     };
     
+    
     static const int JUMP_POW_MAX;      // ジャンプしたときに与えるチカラ
     static const int JUMP_BOOST_MAX;    // ジャンプふんばるチカラ
     static const float GRAVITY;
