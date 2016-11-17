@@ -1,4 +1,4 @@
-﻿//
+//
 //  Label.cpp
 //  TextScript1
 //

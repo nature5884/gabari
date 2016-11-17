@@ -23,10 +23,10 @@ class EnemyActor : public Actor
 public:
     static EnemyActor *create(int no);
     virtual bool init(int no) override;
-    void update(float delta) override;
+    virtual void update(float delta) override;
     
-    void damage(Actor *actor) override;
-    void damage();
+    virtual void damage(Actor *actor) override;
+    virtual void damage();
 };
 
 #endif /* defined(__Lost__EnemyActor__) */

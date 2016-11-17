@@ -2,7 +2,7 @@
 //  KameEnemy.h
 //  Gabari
 //
-//  Created by ¬—Ñr‘¾˜Y on 2016/10/21.
+//  Created by å°æ—ä¿Šå¤ªéƒ on 2016/10/21.
 //
 //
 
@@ -24,7 +24,7 @@ public:
 	void regAnim() override;
 	void kabeHit() override;
 
-	void damage();
+	//void damage();
 	
 };
 

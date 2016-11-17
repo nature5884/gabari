@@ -117,6 +117,7 @@ void Gabari::damage(Actor *actor)
     {
         return;
     }
+    if(_atkMode != ATK_NONE) return;
     
     if(_isMuteki) return;
     

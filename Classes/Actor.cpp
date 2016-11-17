@@ -75,16 +75,18 @@ bool Actor::init(int no)
     
     scheduleUpdate();
     
+    
     return true;
 }
 
 void Actor::regAnim()
 {
-    animationRegist("stand", 1, 100);
+    /*animationRegist("stand", 1, 100);
     animationRegist("walk", 4, 0.1);
     animationRegist("jump", 1, 100);
     animationRegist("attack", 2, 0.1);
 	animationRegist("damage", 1, 30);
+     **/
 }
 
 void Actor::animationRegist(string actionName, int frameNum, float delay)
@@ -189,6 +191,9 @@ void Actor::move()
 
 void Actor::merikomiBack()
 {
+    
+    
+    
     setPosition(Vec2((int)_pos.x, (int)_pos.y));
     
     int hit = 0;
