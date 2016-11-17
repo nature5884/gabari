@@ -21,7 +21,7 @@ public:
     
 private:
     void flyMove();
-    
+    void regAnim() override;
     
 };
 

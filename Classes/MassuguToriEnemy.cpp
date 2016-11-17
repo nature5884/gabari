@@ -39,12 +39,20 @@ bool MassuguToriEnemy::init(int no)
     this->scheduleUpdate();
     return true;
 }
+void MassuguToriEnemy::regAnim()
+{
+    animationRegist("stand", 1, 0.1f);
+}
 
 void MassuguToriEnemy::update(float delta)
 {
+    _prePos = _pos;
+
     EnemyActor::update(delta);
     flyMove();
     merikomiBack();
+    _movedVec = _pos - _prePos;
+
 }
 
 void MassuguToriEnemy::flyMove()

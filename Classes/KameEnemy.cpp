@@ -2,7 +2,7 @@
 //  KameEnemy.cpp
 //  Gabari
 //
-//  Created by ¬—Ñr‘¾˜Y on 2016/10/07.
+//  Created by å°æ—ä¿Šå¤ªéƒ on 2016/10/07.
 //
 //
 

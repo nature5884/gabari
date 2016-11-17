@@ -81,11 +81,12 @@ bool Actor::init(int no)
 
 void Actor::regAnim()
 {
-    animationRegist("stand", 1, 100);
+    /*animationRegist("stand", 1, 100);
     animationRegist("walk", 4, 0.1);
     animationRegist("jump", 1, 100);
     animationRegist("attack", 2, 0.1);
 	animationRegist("damage", 1, 30);
+     **/
 }
 
 void Actor::animationRegist(string actionName, int frameNum, float delay)

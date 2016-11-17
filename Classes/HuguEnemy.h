@@ -2,7 +2,7 @@
 //  HuguEnemy.h
 //  Gabari
 //
-//  Created by ¬—Ñr‘¾˜Y on 2016/10/07.
+//  Created by å°æ—ä¿Šå¤ªéƒ on 2016/10/07.
 //
 //
 
@@ -16,15 +16,13 @@ class HuguEnemy : public EnemyActor
 {
 public:
 
-	int _swellDistance;
-
-
 	static HuguEnemy *create(int no);
 	bool init(int no);
 	void update(float delta);
 	void regAnim() override;
-
 	void swell();
+    
+    int _swellDistance;
 
 
 };

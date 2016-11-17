@@ -16,17 +16,16 @@ class UsagiEnemy : public EnemyActor
 {
 public:
     static UsagiEnemy *create(int no);
-    bool init(int no);
-    void update(float delta);
+    bool init(int no) override;
+    void update(float delta) override;
     
 private:
     int _waitCnt;
     int _WAITMAX;
     
-    void kabeHit();
-    void yukaHit();
-    
-    
+    void regAnim() override;
+    void kabeHit() override;
+    void yukaHit() override;
 };
 
 

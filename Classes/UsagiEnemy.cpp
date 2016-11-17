@@ -38,6 +38,10 @@ bool UsagiEnemy::init(int no)
     this->scheduleUpdate();
     return true;
 }
+void UsagiEnemy::regAnim()
+{
+    animationRegist("jump", 2, 0.1);
+}
 
 void UsagiEnemy::update(float delta)
 {
@@ -55,7 +59,7 @@ void UsagiEnemy::update(float delta)
                 _jumpPow = Actor::JUMP_POW_MAX;
             }
         }
-        else// Moving only Jumpping
+        if(_jumpPow > 0 || !_isLanding)// Moving only Jumpping
         {
             _move.x = _data.speed *(isFlipX()? -1:1);
         }

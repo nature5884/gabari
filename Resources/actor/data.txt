@@ -1,4 +1,4 @@
-﻿
+
 
 
 // -------------------------------
@@ -23,12 +23,12 @@ action	stand,attack
 hp		1
 end
 
-// 主人公の彼女 
+// ジャンピンウサギロボ 
 no		102
-name	mainHeroine
-image	image/actor/m_girl/
+name	usagiRobo
+image	image/actor/usagi/
 speed	0.2f
-action	stand,walk
+action	jump
 hp		100
 end
 
@@ -41,21 +41,21 @@ action	stand,walk,attack
 hp		100
 end
 
-// サラリーマン
+// マッスグトリロボ
 no		104
-name	sara
-image	image/actor/sara/
+name	massuguTori
+image	image/actor/tori/
 speed	0.2f
-action	stand,walk,jump
+action	stand
 hp		30
 end
 
-// カップル男
+// ホーミングトリロボ
 no		105
 name	cap_boy
-image	image/actor/cap_boy/
+image	image/actor/tori/
 speed	0.2f
-action	stand,walk
+action	stand
 hp		100
 end
 

@@ -22,6 +22,7 @@ public:
 private:
     Vec2 _moveVec;
     void homingMove();
+    void regAnim() override;
     
     
 };

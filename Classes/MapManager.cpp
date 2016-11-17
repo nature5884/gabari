@@ -92,6 +92,7 @@ void MapManager::transitionMap(int mapNo)
             }
             else if(d != 0)
             {
+                log("debug : %s",_mapData.chipFileName[_mapData.mapData[index]].c_str());
                 Sprite *chip = Sprite::create(_mapData.chipFileName[_mapData.mapData[index]]);
                 chip->getTexture()->setAliasTexParameters();
                 chip->setPosition(pos);

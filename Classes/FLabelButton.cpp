@@ -1,4 +1,4 @@
-﻿//
+//
 //  FLabelButton.cpp
 //  Tokuten
 //

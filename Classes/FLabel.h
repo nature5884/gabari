@@ -1,4 +1,4 @@
-﻿//
+//
 //  FLabel.h
 //
 //  Created by Furukawa on 2014/10/28.

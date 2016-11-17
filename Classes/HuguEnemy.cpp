@@ -2,7 +2,7 @@
 //  HuguEnemy.cpp
 //  Gabari
 //
-//  Created by ¬—Ñr‘¾˜Y on 2016/10/07.
+//  Created by å°æž—ä¿Šå¤ªéƒŽ on 2016/10/07.
 //
 //
 
@@ -35,7 +35,7 @@ bool HuguEnemy::init(int no)
 
 	//_isKinematic = true;
 
-	// ‹ß‚Ã‚¢‚½‚ç–c‚ç‚Þ‹——£
+	// è¿‘ã¥ã„ãŸã‚‰è†¨ã‚‰ã‚€è·é›¢
 	_swellDistance = 28;
 
 	this->scheduleUpdate();
@@ -66,13 +66,13 @@ void HuguEnemy::swell()
 
 	if (abs(distance) <= _swellDistance)
 	{
-		//–c‚ç‚Þ
+		//è†¨ã‚‰ã‚€
 		_isAttack = true;
-		log("‚Ó‚­‚ç‚ñ‚¾");
+		log("ãµãã‚‰ã‚“ã ");
 	}
 	else
 	{
 		_isAttack = false;
-		log("‚µ‚Ú‚ñ‚¾");
+		log("ã—ã¼ã‚“ã ");
 	}
 }
