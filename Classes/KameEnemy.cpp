@@ -54,6 +54,12 @@ void KameEnemy::update(float delta)
 	}
 
 	EnemyActor::update(delta);
+
+	if (_hp < 10000)
+	{
+		_data.speed = 0;
+		_state = STAND;
+	}
 }
 
 void KameEnemy::kabeHit()

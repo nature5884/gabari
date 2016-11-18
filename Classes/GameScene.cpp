@@ -59,7 +59,7 @@ bool GameScene::init()
     _controller = GameController::getInstance();
     _controller->_running = true;
     
-    Sprite *biru = Sprite::create("image/back/biru.png");
+    Sprite *biru = Sprite::create("image/back/labo.png");
     biru->setAnchorPoint(Vec2::ZERO);
     biru->setPosition(Vec2(0, _controller->getUIHeight()));
     addChild(biru);
