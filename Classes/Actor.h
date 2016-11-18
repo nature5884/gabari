@@ -46,7 +46,9 @@ public:
         WALK,
         JUMP,
         ATTACK,
+		DAMAGE,
     };
+    
     
     static const int JUMP_POW_MAX;      // ジャンプしたときに与えるチカラ
     static const int JUMP_BOOST_MAX;    // ジャンプふんばるチカラ
@@ -59,6 +61,7 @@ public:
     int _jumpBoost;         // ジャンプふんばり力
     bool _isLanding;        // 着地してるか
     bool _isAttack;         // 攻撃中か
+	bool _isDamage;
     int _hp;                // HP
     int _preHp;             // 1フレーム前のhp
     bool _isDestroy;          // 消滅したか

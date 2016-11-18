@@ -1,4 +1,4 @@
-﻿//
+//
 //  FLayer.cpp
 //  Collapse
 //

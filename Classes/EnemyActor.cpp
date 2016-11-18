@@ -40,15 +40,18 @@ void EnemyActor::update(float delta)
 {
     Actor::update(delta);
     
-    auto hitAct = hitCheckActor();
-    if(hitAct && hitAct->_kind == PLAYER)
-    {
-        hitAct->damage(this);
-    }
+//    auto hitAct = hitCheckActor();
+    
+//    if(hitAct && hitAct->_kind == PLAYER)
+//    {
+//        hitAct->damage(this);
+//    }
 }
 
 void EnemyActor::damage(Actor *actor)
 {
+   
+    
     if(actor->_kind != PLAYER) return;
     
     // 主人公に当たった場合は、主人公に無敵時間が発生するのでHitを回避する
@@ -59,7 +62,6 @@ void EnemyActor::damage(Actor *actor)
         if(actor->getName() == "gabari")
         {
             Gabari *hero = (Gabari*)actor;
-            
             if(!hero->_isMuteki)
             {
                 damage();
@@ -74,8 +76,8 @@ void EnemyActor::damage(Actor *actor)
 void EnemyActor::damage()
 {
     _hp --;
-    
-    damageEffect();
+    log("damageNow'Enemy'");
+    //damageEffect();
 }
 
 

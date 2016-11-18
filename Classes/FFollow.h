@@ -1,4 +1,4 @@
-﻿//
+//
 //  FFollow.h
 //  OreTobe
 //

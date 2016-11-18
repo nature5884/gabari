@@ -14,69 +14,86 @@ action	stand,walk,jump,attack
 hp		100
 end
 
-// 男の子
+// フグロボ
 no		101
-name	mainHero
-image	image/actor/m_boy/
-speed	0.2f
-action	stand,walk,jump,attack
-hp		50
+name	huguRobo
+image	image/actor/hugu/
+speed	0.0f
+action	stand,attack
+hp		1
 end
 
-// 主人公の彼女 
+// ジャンピンウサギロボ 
 no		102
-name	mainHeroine
-image	image/actor/m_girl/
+name	usagiRobo
+image	image/actor/usagi/
 speed	0.2f
-action	stand,walk
-hp		100
+action	jump
+hp		1
 end
 
-// 謎の男
+// カメロボ
 no		103
-name	nazo
-image	image/actor/nazo/
-speed	0.2f
-action	stand,walk
+name	kameRobo
+image	image/actor/kame/
+speed	0.11f
+action	stand,walk,attack
 hp		100
 end
 
-// サラリーマン
+// トゲカメロボ
 no		104
-name	sara
-image	image/actor/sara/
+name	togeKameRobo
+image	image/actor/kame/
 speed	0.2f
-action	stand,walk,jump
-hp		30
+action	stand
+hp		100
 end
 
-// カップル男
+// トゲくん
 no		105
-name	cap_boy
-image	image/actor/cap_boy/
-speed	0.2f
-action	stand,walk
-hp		100
+name	togeKun
+image	image/actor/tori/
+speed	0.0f
+action	stand
+hp		10000000
 end
 
-// カップル女
+// ホーミングトリロボ
 no		106
-name	cap_girl
-image	image/actor/cap_girl/
+name	hormingTroiRobo
+image	image/actor/h_tori/
 speed	0.2f
-action	stand,walk
+action	stand
 hp		100
 end
 
-// そこにいた女
-no		107
-name	osoware_girl
-image	image/actor/osoware_girl/
+// ハッシャダイ
+no		109
+name	cannon
+image	image/actor/cannon/
+speed	0.0f
+action	stand
+hp		10000000
+end
+
+// コトリロボ
+no		110
+name	kotoriRobo
+image	image/actor/tori/
 speed	0.2f
-action	stand,walk
+action	stand
 hp		100
 end
 
+// マッスグトリロボ
+no		140
+name	massuguToriRobo
+image	image/actor/m_tori/
+speed	0.2f
+action	stand
+hp		100
+end
 
 // -------------------------------
 // 攻撃するやつ
