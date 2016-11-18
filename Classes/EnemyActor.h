@@ -25,8 +25,8 @@ public:
     virtual bool init(int no) override;
     virtual void update(float delta) override;
     
-    virtual void damage(Actor *actor) override;
-    virtual void damage();
+    void damage(Actor *actor) override;
+    void damage();
 };
 
 #endif /* defined(__Lost__EnemyActor__) */

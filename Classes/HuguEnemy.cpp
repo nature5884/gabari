@@ -68,11 +68,11 @@ void HuguEnemy::swell()
 	{
 		//膨らむ
 		_isAttack = true;
-		log("ふくらんだ");
+		//log("ふくらんだ");
 	}
 	else
 	{
 		_isAttack = false;
-		log("しぼんだ");
+		//log("しぼんだ");
 	}
 }

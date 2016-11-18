@@ -47,7 +47,7 @@ void UsagiEnemy::update(float delta)
 {
     EnemyActor::update(delta);
     
-    log("%f,%f",this->getPositionX(),this->getPositionY());
+    //log("%f,%f",this->getPositionX(),this->getPositionY());
     
     // when _waitCnt is 0 to Jump
     if(!_isDestroy)

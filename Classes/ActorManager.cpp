@@ -13,6 +13,9 @@
 #include "UsagiEnemy.h"
 #include "MassuguToriEnemy.h"
 #include "HomingToriEnemy.h"
+#include "TogeEnemy.h"
+#include "TogeKameEnemy.h"
+#include "HassyaDaiEnemy.h"
 
 ActorManager *ActorManager::_instance = NULL;
 ActorManager *ActorManager::getInstance()
@@ -71,8 +74,11 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
 	else if (no == 101) actor = new HuguEnemy();
     else if (no == 102) actor = new UsagiEnemy();
 	else if (no == 103) actor = new KameEnemy();
-    else if (no == 104) actor = new MassuguToriEnemy();
-    else if (no == 105) actor = new HomingToriEnemy();
+    //else if (no == 104) actor = new TogeKameEnemy();
+    else if (no == 105) actor = new TogeEnemy();
+    else if (no == 106) actor = new HomingToriEnemy();
+    else if (no == 109) actor = new HassyaDaiEnemy();
+    else if (no == 140) actor = new MassuguToriEnemy();
     else actor = new Actor();
     
     addChild(actor);

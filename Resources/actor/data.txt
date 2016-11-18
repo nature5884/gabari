@@ -29,7 +29,7 @@ name	usagiRobo
 image	image/actor/usagi/
 speed	0.2f
 action	jump
-hp		100
+hp		1
 end
 
 // カメロボ
@@ -41,42 +41,59 @@ action	stand,walk,attack
 hp		100
 end
 
-// マッスグトリロボ
+// トゲカメロボ
 no		104
-name	massuguTori
-image	image/actor/tori/
+name	togeKameRobo
+image	image/actor/kame/
 speed	0.2f
 action	stand
-hp		30
+hp		100
+end
+
+// トゲくん
+no		105
+name	togeKun
+image	image/actor/tori/
+speed	0.0f
+action	stand
+hp		10000000
 end
 
 // ホーミングトリロボ
-no		105
-name	cap_boy
+no		106
+name	hormingTroiRobo
+image	image/actor/h_tori/
+speed	0.2f
+action	stand
+hp		100
+end
+
+// ハッシャダイ
+no		109
+name	cannon
+image	image/actor/cannon/
+speed	0.0f
+action	stand
+hp		10000000
+end
+
+// コトリロボ
+no		110
+name	kotoriRobo
 image	image/actor/tori/
 speed	0.2f
 action	stand
 hp		100
 end
 
-// カップル女
-no		106
-name	cap_girl
-image	image/actor/cap_girl/
+// マッスグトリロボ
+no		140
+name	massuguToriRobo
+image	image/actor/m_tori/
 speed	0.2f
-action	stand,walk
+action	stand
 hp		100
 end
-
-// そこにいた女
-no		107
-name	osoware_girl
-image	image/actor/osoware_girl/
-speed	0.2f
-action	stand,walk
-hp		100
-end
-
 
 // -------------------------------
 // 攻撃するやつ
