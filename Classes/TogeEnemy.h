@@ -17,6 +17,7 @@ class TogeEnemy : public EnemyActor
 public:
 	static TogeEnemy *create(int no);
 	bool init(int no);
+	void regAnim() override;
 	void update(float delta);
 	
 };

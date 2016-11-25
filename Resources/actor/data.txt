@@ -1,4 +1,4 @@
-
+﻿
 
 
 // -------------------------------
@@ -11,7 +11,7 @@ name	gabari
 image	image/actor/gabari/
 speed	0.2f
 action	stand,walk,jump,attack
-hp		100
+hp		10000
 end
 
 // フグロボ
@@ -53,7 +53,7 @@ end
 // トゲくん
 no		105
 name	togeKun
-image	image/actor/tori/
+image	image/actor/toge/
 speed	0.0f
 action	stand
 hp		10000000

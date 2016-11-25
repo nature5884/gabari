@@ -8,6 +8,8 @@
 
 #include "KameEnemy.h"
 
+const int KameEnemy::_recoverCompleteTime = 300;
+
 KameEnemy *KameEnemy::create(int no)
 {
 	KameEnemy *pRet = new KameEnemy();
@@ -33,6 +35,7 @@ bool KameEnemy::init(int no)
 	}
 
 	_hp  = _recoverHp = 10000;
+	_recoverTime = 0;
 
 	this->scheduleUpdate();
 	return true;
@@ -48,18 +51,29 @@ void KameEnemy::regAnim()
 
 void KameEnemy::update(float delta)
 {
-	if (!_isDestroy)
+	if (_isDestroy)
+	{
+		return;
+	}
+
+	if (!_isDestroy && _hp >= 10000)
 	{
 		_move.x = _data.speed * (isFlippedX() ? -1 : 1);
 	}
+	else if (_hp < 10000)
+	{
+		_move.x = 0;
+		_recoverTime++;
+
+		// 復帰までの時間
+		if (_recoverTime >= _recoverCompleteTime)
+		{
+			_hp = 10000;
+			_recoverTime = 0;
+		}
+	}
 
 	EnemyActor::update(delta);
-
-	if (_hp < 10000)
-	{
-		_data.speed = 0;
-		_state = STAND;
-	}
 }
 
 void KameEnemy::kabeHit()

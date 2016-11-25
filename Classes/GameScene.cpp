@@ -58,10 +58,12 @@ bool GameScene::init()
     
     _controller = GameController::getInstance();
     _controller->_running = true;
+
+	back->setPositionY(-_controller->getUIHeight());
     
     Sprite *biru = Sprite::create("image/back/labo.png");
     biru->setAnchorPoint(Vec2::ZERO);
-    biru->setPosition(Vec2(0, _controller->getUIHeight()));
+    biru->setPosition(Vec2(0,0));
     addChild(biru);
     
     _gameLayer = GameLayer::create();

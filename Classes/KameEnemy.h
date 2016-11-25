@@ -17,6 +17,8 @@ class KameEnemy : public EnemyActor
 public:
 
 	int _recoverHp;
+	int _recoverTime;
+	static const int _recoverCompleteTime;
 
 	static KameEnemy *create(int no);
 	bool init(int no);

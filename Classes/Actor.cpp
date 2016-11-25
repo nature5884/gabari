@@ -301,8 +301,7 @@ void Actor::state()
     {
         stopAllActions();
         
-//        printf("l");
-        
+
         switch (_state) {
             case STAND:
                 if(isActionEnable("stand"))
