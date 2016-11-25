@@ -32,10 +32,15 @@ bool TogeEnemy::init(int no)
 		return false;
 	}
 
-	_isKinematic = true;
+	//_isKinematic = true;
 
 	this->scheduleUpdate();
 	return true;
+}
+
+void TogeEnemy::regAnim()
+{
+	animationRegist("stand", 1, 100);
 }
 
 void TogeEnemy::update(float delta)

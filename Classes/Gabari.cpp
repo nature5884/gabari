@@ -54,7 +54,7 @@ bool Gabari::init(int no)
 
 void Gabari::update(float delta)
 {
-    
+	log("gabariX,%.0f", getPositionY());
     scopeMove();
     
 //    if(_isLanding && !_move.isZero())
@@ -99,8 +99,9 @@ void Gabari::update(float delta)
         state();
         
         // アクターに刺さっていたら、移動量足す
-        if(_targetActor)
+        if(_targetActor && !_targetActor->_isDestroy)
         {
+			
             _pos += _targetActor->_movedVec;
             setPosition(_pos);
             
@@ -278,7 +279,7 @@ void Gabari::attackAfter()
 {
     auto gameCtrl = GameController::getInstance();
     
-    if(gameCtrl->maru(1) || gameCtrl->right(1) || gameCtrl->left(1))
+    if(gameCtrl->maru(1) || gameCtrl->right(1) || gameCtrl->left(1) || (_targetActor && _targetActor->_isDestroy))
     {
         _targetActor = NULL;
         _isAttack = false;
