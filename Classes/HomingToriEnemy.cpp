@@ -74,12 +74,17 @@ void HomingToriEnemy::homingMove()
     // 角度出します
     float rot = acos(Vec2::dot(_movedVec,toTargetVec));
     // ターゲットに対して自分の向いてる方向と角度を出してその差分緩やかに回転するよ
-    if(rot > 0.003f)
+    if(rot > 5.0f * (M_PI / 180))
     {
-        float rotMax = 0.001f * (180.0f / M_PI);
+        float rotMax = 1.5f * (M_PI / 180);
         
-        if(rot > rotMax) rot = rotMax;
-        
+        if(rot > rotMax)
+        {
+            log("before%f",rot);
+            rot = rotMax;
+            log("after%f",rot);
+
+        }
         float ccw = _moveVec.x * toTargetVec.y + _moveVec.y * toTargetVec.x;
         if(ccw < 0) rot = -rot;
         

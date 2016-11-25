@@ -560,7 +560,7 @@ Actor *Actor::hitCheckActor()
     for(auto child : ActorManager::getInstance()->getChildren())
     {
         Actor *actor = (Actor*)child;
-        
+        if(actor != NULL && !actor->_isDestroy) continue;
         if(actor->getName() == "") continue;
         if(actor == this) continue;
         if(actor->_isDestroy) continue;

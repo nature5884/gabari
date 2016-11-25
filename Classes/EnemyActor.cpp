@@ -40,12 +40,12 @@ void EnemyActor::update(float delta)
 {
     Actor::update(delta);
     
-//    auto hitAct = hitCheckActor();
+    auto hitAct = hitCheckActor();
     
-//    if(hitAct && hitAct->_kind == PLAYER)
-//    {
-//        hitAct->damage(this);
-//    }
+    if(hitAct && hitAct->_kind == PLAYER)
+    {
+        hitAct->damage(this);
+    }
 }
 
 void EnemyActor::damage(Actor *actor)
@@ -76,8 +76,7 @@ void EnemyActor::damage(Actor *actor)
 void EnemyActor::damage()
 {
     _hp --;
-    log("damageNow'Enemy'");
-    //damageEffect();
+    damageEffect();
 }
 
 

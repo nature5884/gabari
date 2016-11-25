@@ -261,7 +261,6 @@ void Gabari::attackNow()
     
     if(hitAct != NULL && hitAct->getName() != "")
     {
-        log("%s::damage",hitAct->getName().c_str());
         hitAct->damage(this);
         _targetActor = hitAct;
     }
