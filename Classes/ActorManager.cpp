@@ -91,6 +91,16 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     return actor;
 }
 
+WarpMachine *ActorManager::createWarpMachine(int trans, Vec2 pos)
+{
+    WarpMachine *warp = WarpMachine::create(trans);
+//    warp->_pos = pos;
+    warp->setPosition(pos);
+    
+    addChild(warp);
+    return warp;
+}
+
 void ActorManager::damageCheck()
 {
     auto children = getChildren();

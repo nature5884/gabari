@@ -22,7 +22,7 @@ using namespace cocos2d;
 using namespace CocosDenshion;
 using namespace std;
 
-class GameScene : public FDotLayer
+class GameScene : public Layer
 {
 public:
     static Scene *createScene();
