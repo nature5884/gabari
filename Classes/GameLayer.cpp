@@ -43,7 +43,7 @@ bool GameLayer::init()
     addChild(_mapManager);
     _mapManager->_actorManager = _actorManager;
     
-    _mapManager->transitionMap(0);
+    _mapManager->transitionMap(1);
     
     
     
