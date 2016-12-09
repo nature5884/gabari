@@ -2,7 +2,7 @@
 //  KameEnemy.cpp
 //  Gabari
 //
-//  Created by 小林俊太郎 on 2016/10/07.
+//  Created by Kobayashi on 2016/10/07.
 //
 //
 

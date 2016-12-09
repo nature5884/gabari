@@ -116,11 +116,13 @@ void MapManager::transitionMap(int mapNo)
                 {
                     _mapData.tileData[index] = chip;
 //                    chip->setAnchorPoint(Vec2(0, 0));
+					chip->setLocalZOrder(1);
                 }
                 
                 if(d != 1)
                 {
                     chip->setPosition(chip->getPosition() + Vec2(0, 0));
+					
                 }
             }
         }

@@ -87,6 +87,8 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
     actor->autorelease();
     
     actor->_pos = pos;
+
+	actor->merikomiBack();
     
     return actor;
 }
