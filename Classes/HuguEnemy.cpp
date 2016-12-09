@@ -51,6 +51,9 @@ void HuguEnemy::regAnim()
 void HuguEnemy::update(float delta)
 {
 	swell();
+
+	_pos.y += GRAVITY;
+
 	EnemyActor::update(delta);
 }
 
