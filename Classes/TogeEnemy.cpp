@@ -2,7 +2,7 @@
 //  TogeEnemy.cpp
 //  Gabari
 //
-//  Created by 小林俊太郎 on 2016/10/07.
+//  Created by Kobayashi on 2016/10/07.
 //
 //
 
@@ -32,7 +32,7 @@ bool TogeEnemy::init(int no)
 		return false;
 	}
 
-	//_isKinematic = true;
+	_isKinematic = true;
 
 	this->scheduleUpdate();
 	return true;

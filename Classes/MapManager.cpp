@@ -122,6 +122,7 @@ void MapManager::transitionMap(int mapNo)
                 if(d != 1)
                 {
                     chip->setPosition(chip->getPosition() + Vec2(0, 0));
+					
                 }
             }
         }
