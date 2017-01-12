@@ -2,7 +2,7 @@
 //  HuguEnemy.cpp
 //  Gabari
 //
-//  Created by 小林俊太郎 on 2016/10/07.
+//  Created by Kobayashi on 2016/10/07.
 //
 //
 
@@ -33,7 +33,7 @@ bool HuguEnemy::init(int no)
 		return false;
 	}
 
-	//_isKinematic = true;
+	_isKinematic = true;
 
 	// 近づいたら膨らむ距離
 	_swellDistance = 28;
@@ -51,6 +51,9 @@ void HuguEnemy::regAnim()
 void HuguEnemy::update(float delta)
 {
 	swell();
+
+	//_pos.y += GRAVITY;
+
 	EnemyActor::update(delta);
 }
 
@@ -74,3 +77,4 @@ void HuguEnemy::swell()
 		_isAttack = false;
 	}
 }
+ 

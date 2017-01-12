@@ -54,7 +54,6 @@ bool Gabari::init(int no)
 
 void Gabari::update(float delta)
 {
-	log("gabariX,%.0f", getPositionY());
     scopeMove();
     
 //    if(_isLanding && !_move.isZero())

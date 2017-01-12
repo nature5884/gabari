@@ -57,9 +57,14 @@ void MapManager::update(float delta)
 
 void MapManager::transitionMap(int mapNo)
 {
+    setPositionX(0);
+    getParent()->setPositionX(0);
+    getParent()->setPositionY(GameController::getInstance()->getUIHeight());
+    
     removeAllChildren();
     _actorManager->removeAllChildren();
     _mapData.mapData.clear();
+    _mapData.chipFileName.clear();
     _mapData.tileData.clear();
     _mapData.constValue.clear();
     
@@ -90,6 +95,14 @@ void MapManager::transitionMap(int mapNo)
             {
                 _actorManager->createActor(d, pos);
             }
+            
+            else if(_mapData.chipFileName[d].find("warp/") != string::npos)
+            {
+                int trans;
+                sscanf(_mapData.chipFileName[d].c_str(), "warp/%d", &trans);
+                
+                _actorManager->createWarpMachine(trans, pos);
+            }
             else if(d != 0)
             {
                 log("debug : %s",_mapData.chipFileName[_mapData.mapData[index]].c_str());
@@ -103,11 +116,13 @@ void MapManager::transitionMap(int mapNo)
                 {
                     _mapData.tileData[index] = chip;
 //                    chip->setAnchorPoint(Vec2(0, 0));
+					chip->setLocalZOrder(1);
                 }
                 
                 if(d != 1)
                 {
                     chip->setPosition(chip->getPosition() + Vec2(0, 0));
+					
                 }
             }
         }
@@ -129,6 +144,40 @@ void MapManager::follow(cocos2d::Node *target)
     follow->_origin = getParent()->getPosition();
     getParent()->runAction(follow);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

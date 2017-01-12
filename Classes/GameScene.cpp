@@ -37,7 +37,7 @@ GameScene *GameScene::create()
 
 bool GameScene::init()
 {
-    if ( !FDotLayer::init() ) return false;
+    if ( !Layer::init() ) return false;
     
     _running = true;
     
@@ -84,7 +84,7 @@ bool GameScene::init()
 
 void GameScene::update(float delta)
 {
-    FDotLayer::update(delta);
+//    FDotLayer::update(delta);
     
     _controller->update(delta);
     _gameLayer->update(delta);

@@ -65,7 +65,7 @@ name	hormingTroiRobo
 image	image/actor/h_tori/
 speed	0.2f
 action	stand
-hp		100
+hp		1
 end
 
 // ハッシャダイ
@@ -92,7 +92,7 @@ name	massuguToriRobo
 image	image/actor/m_tori/
 speed	0.2f
 action	stand
-hp		100
+hp		1
 end
 
 //ゴリラBOSS/////////
@@ -167,15 +167,47 @@ end
 
 
 // -------------------------------
-// てき
+// ろご
 // -------------------------------
 
-no		300
-name	moja0
-image	image/actor/moja0/
-speed	0.1f
-action	stand,walk
-hp		10
+no		9000
+name	LogoG
+image	image/actor/logo_G/
+speed	0.0f
+action	stand
+hp		1
+end
+
+no		9100
+name	LogoA
+image	image/actor/logo_A/
+speed	0.0f
+action	stand
+hp		1
+end
+
+no		9200
+name	LogoB
+image	image/actor/logo_B/
+speed	0.0f
+action	stand
+hp		1
+end
+
+no		9300
+name	LogoR
+image	image/actor/logo_R/
+speed	0.0f
+action	stand
+hp		1
+end
+
+no		9400
+name	LogoI
+image	image/actor/logo_I/
+speed	0.0f
+action	stand
+hp		1
 end
 
 

@@ -15,6 +15,7 @@
 #include "Actor.h"
 #include "ActorDataLoader.h"
 #include "ActorController.h"
+#include "WarpMachine.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -34,6 +35,7 @@ public:
     void update(float delta);
     
     Actor *createActor(int no, Vec2 pos);
+    WarpMachine *createWarpMachine(int trans, Vec2 pos);
     void damageCheck();
 };
 

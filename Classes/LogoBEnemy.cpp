@@ -1,16 +1,16 @@
 //
-//  TogeEnemy.cpp
+//  LogoBEnemy.cpp
 //  Gabari
 //
 //  Created by Kobayashi on 2016/10/07.
 //
 //
 
-#include "TogeEnemy.h"
+#include "LogoBEnemy.h"
 
-TogeEnemy *TogeEnemy::create(int no)
+LogoBEnemy *LogoBEnemy::create(int no)
 {
-	TogeEnemy *pRet = new TogeEnemy();
+	LogoBEnemy *pRet = new LogoBEnemy();
 
 	if (pRet && pRet->init(no))
 	{
@@ -25,7 +25,7 @@ TogeEnemy *TogeEnemy::create(int no)
 	}
 }
 
-bool TogeEnemy::init(int no)
+bool LogoBEnemy::init(int no)
 {
 	if (!EnemyActor::init(no))
 	{
@@ -38,12 +38,12 @@ bool TogeEnemy::init(int no)
 	return true;
 }
 
-void TogeEnemy::regAnim()
+void LogoBEnemy::regAnim()
 {
 	animationRegist("stand", 1, 100);
 }
 
-void TogeEnemy::update(float delta)
+void LogoBEnemy::update(float delta)
 {
 	EnemyActor::update(delta);
 }
