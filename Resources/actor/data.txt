@@ -1,4 +1,4 @@
-﻿
+
 
 
 // -------------------------------
@@ -93,6 +93,56 @@ image	image/actor/m_tori/
 speed	0.2f
 action	stand
 hp		100
+end
+
+//ゴリラBOSS/////////
+//頭
+no	1000
+name	goriraHead
+image	image/actor/gorira/head/
+action	stand
+end
+
+// 体
+no	1001
+name	goriraBoady
+image	image/actor/gorira/body/
+action	stand
+end
+
+// 右腕
+no	1002
+name	goriraHandR
+image	image/actor/gorira/handR/
+action	stand
+end
+
+// 左腕
+no	1003
+name	goriraHandL
+image	image/actor/gorira/handL/
+action	stand
+end
+
+// 右胸
+no	1006
+name	goriraBreastR
+image	image/actor/gorira/breastR/
+action	stand
+end
+
+// 右足
+no	1005
+name	legR
+image	image/actor/gorira/legR/
+action	stand
+end
+
+// 左足
+no	1006
+name	legL
+image	image/actor/gorira/legL/
+action	stand
 end
 
 // -------------------------------

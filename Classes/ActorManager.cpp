@@ -16,6 +16,8 @@
 #include "TogeEnemy.h"
 #include "TogeKameEnemy.h"
 #include "HassyaDaiEnemy.h"
+#include "BossActor.h"
+#include "GoriraBossEnemy.h"
 
 ActorManager *ActorManager::_instance = NULL;
 ActorManager *ActorManager::getInstance()
@@ -67,28 +69,41 @@ void ActorManager::update(float delta)
 
 Actor *ActorManager::createActor(int no, Vec2 pos)
 {
-    Actor *actor;
     
-    
-    if(no == 999) actor = new Gabari();
-	else if (no == 101) actor = new HuguEnemy();
-    else if (no == 102) actor = new UsagiEnemy();
-	else if (no == 103) actor = new KameEnemy();
-    //else if (no == 104) actor = new TogeKameEnemy();
-    else if (no == 105) actor = new TogeEnemy();
-    else if (no == 106) actor = new HomingToriEnemy();
-    else if (no == 109) actor = new HassyaDaiEnemy();
-    else if (no == 140) actor = new MassuguToriEnemy();
-    else actor = new Actor();
-    
-    addChild(actor);
-    
-    actor->init(no);
-    actor->autorelease();
-    
-    actor->_pos = pos;
-    
-    return actor;
+    if(no >= 0)
+    {
+        Actor *actor;
+        
+        if(no == 999) actor = new Gabari();
+        else if (no == 101) actor = new HuguEnemy();
+        else if (no == 102) actor = new UsagiEnemy();
+        else if (no == 103) actor = new KameEnemy();
+        //else if (no == 104) actor = new TogeKameEnemy();
+        else if (no == 105) actor = new TogeEnemy();
+        else if (no == 106) actor = new HomingToriEnemy();
+        else if (no == 109) actor = new HassyaDaiEnemy();
+        else if (no == 140) actor = new MassuguToriEnemy();
+        else actor = new Actor();
+        
+        addChild(actor);
+        
+        actor->init(no);
+        actor->autorelease();
+        
+        actor->_pos = pos;
+        
+        return actor;
+    }
+    else
+    {
+        BossActor *boss;
+        
+        if(no == -1000) boss = GoriraBossEnemy::create(no);
+ 
+        addChild(boss);
+        boss->_pos = pos;
+        
+    }
 }
 
 void ActorManager::damageCheck()

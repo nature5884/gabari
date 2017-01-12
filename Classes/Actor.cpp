@@ -589,9 +589,7 @@ Actor *Actor::hitCheckActorFromPoint()
         {
             return actor;
         }
-        
     }
-    
     return NULL;
 }
 

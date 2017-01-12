@@ -160,7 +160,6 @@ vector<Actor::ActorData> ActorDataLoader::getActorDataFromFileName(string fileNa
     for(auto tsvData : dataList)
     {
         Actor::ActorData act;
-        
         for(auto data : tsvData)
         {
             if(data.size() < 2) continue;
@@ -177,7 +176,6 @@ vector<Actor::ActorData> ActorDataLoader::getActorDataFromFileName(string fileNa
         
         actData.push_back(act);
     }
-    
     
     return actData;
 }
