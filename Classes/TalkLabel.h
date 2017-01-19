@@ -27,6 +27,7 @@ public:
     void endRunString();
     
     bool getRunning(){return running;};
+    bool getRunFinish(){return runFinish;};
     
     static const int STRING_LINE_MAX;
     
@@ -40,6 +41,7 @@ private:
     int lineCount;
     
     bool running;
+    bool runFinish;
     bool cansel;
     
     void runString();

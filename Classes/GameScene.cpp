@@ -12,6 +12,8 @@
 #include "MapManager.h"
 #include "FDotLayer.h"
 
+#include "ResultBoard.h"
+
 Scene *GameScene::createScene()
 {
     auto scene = Scene::create();
@@ -77,6 +79,14 @@ bool GameScene::init()
     _talkEventLayer->_gameLayer = _gameLayer;
     
     scheduleUpdate();
+    
+    
+    ///////debug
+    ResultBoard *hoge = ResultBoard::create(0);
+    this->addChild(hoge);
+    hoge->setZOrder(10000);
+    
+    
     return true;
     
     

@@ -45,6 +45,7 @@ bool TalkLabel::init(string str, string fontFile, int fontSize)
     lineCount = 0;
     
     running = false;
+    runFinish = false;
     cansel = false;
     
     scheduleUpdate();
@@ -67,6 +68,7 @@ void TalkLabel::startRunString(string text, float dt)
     delayTime = dt;
     
     running = true;
+    runFinish = false;
     lineCount = 0;
     
     frameCnt = 0;
@@ -118,6 +120,7 @@ void TalkLabel::runString()
         else
         {
             running = false;
+            runFinish = true;
             if(cansel)
             {
                 delayTime = tempDelayTime;

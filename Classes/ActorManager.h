@@ -35,7 +35,7 @@ public:
     void update(float delta);
     
     Actor *createActor(int no, Vec2 pos);
-    WarpMachine *createWarpMachine(int trans, Vec2 pos);
+    //WarpMachine *createWarpMachine(int trans, Vec2 pos);
     void damageCheck();
 };
 

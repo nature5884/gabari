@@ -90,6 +90,8 @@ Actor *ActorManager::createActor(int no, Vec2 pos)
         actor->init(no);
         actor->autorelease();
         
+        actor->setPosition(pos);
+        
         actor->_pos = pos;
         
         return actor;
@@ -137,10 +139,6 @@ void ActorManager::damageCheck()
         }
     }
 }
-
-
-
-
 
 
 

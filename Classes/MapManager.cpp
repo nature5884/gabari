@@ -101,7 +101,7 @@ void MapManager::transitionMap(int mapNo)
                 int trans;
                 sscanf(_mapData.chipFileName[d].c_str(), "warp/%d", &trans);
                 
-                _actorManager->createWarpMachine(trans, pos);
+                //_actorManager->createWarpMachine(trans, pos);
             }
             else if(d != 0)
             {
