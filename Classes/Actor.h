@@ -19,6 +19,8 @@ using namespace CocosDenshion;
 using namespace std;
 using namespace FGeneral;
 
+#define STATEANIM_TAG 114514
+
 class Actor : public Sprite
 {
 public:

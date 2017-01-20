@@ -39,6 +39,7 @@ public:
     
     void attack();
     void damage(Actor *actor);
+    void damageEffect();
     
     void regAnim();
     
@@ -62,6 +63,11 @@ public:
     bool _preIsAttackPushed;
     
     GabariScope *_scope;
+    
+private:
+    int _mutekiTimer;
+    
+    
 };
 
 #endif /* defined(__Gabari__Gabari__) */

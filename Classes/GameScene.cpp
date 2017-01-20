@@ -82,10 +82,10 @@ bool GameScene::init()
     
     
     ///////debug
-    ResultBoard *hoge = ResultBoard::create(0);
-    this->addChild(hoge);
-    hoge->setZOrder(10000);
-    
+//    ResultBoard *hoge = ResultBoard::create(0);
+//    this->addChild(hoge);
+//    hoge->setZOrder(10000);
+//    
     
     return true;
     

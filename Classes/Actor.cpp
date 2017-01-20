@@ -258,7 +258,7 @@ void Actor::merikomiBack()
     {
         for(int i=0; i<4; i++)
         {
-            if(hitDir[i]) printf("%d", i);
+            //if(hitDir[i]) printf("%d", i);
         }
         printf("\n");
     }
@@ -300,12 +300,16 @@ void Actor::state()
     if(_preState != _state)
     {
         stopAllActions();
+//        if(getActionByTag(STATEANIM_TAG)) getActionByTag(STATEANIM_TAG)->stop();
         
-
+        
+        Action *stateAnim;
         switch (_state) {
+                
             case STAND:
                 if(isActionEnable("stand"))
                 {
+//                    stateAnim = AnimationManager::createRepeatForever(_data.name + "stand");
                     runAction(AnimationManager::createRepeatForever(_data.name + "stand"));
                 }
                 break;
@@ -313,46 +317,72 @@ void Actor::state()
             case WALK:
                 if(isActionEnable("walk"))
                 {
+//                    stateAnim = AnimationManager::createRepeatForever(_data.name + "walk");
                     runAction(AnimationManager::createRepeatForever(_data.name + "walk"));
+                    
                 }
                 break;
                 
             case JUMP:
                 if(isActionEnable("jump"))
                 {
+//                    stateAnim = AnimationManager::createRepeat(_data.name + "jump", 1);
                     runAction(AnimationManager::createRepeat(_data.name + "jump", 1));
+
                 }
                 break;
                 
             case ATTACK:
                 if(isActionEnable("attack"))
                 {
+//                    stateAnim = Sequence::create(AnimationManager::createRepeat(_data.name + "attack", 1),
+//                                            CallFunc::create([=]()
+//                                                             {
+//                                                                 _isAttack = false;
+//                                                                 _state = STAND;
+//                                                             }),
+//                                            NULL); // 仮でwalkのアニメーションつかうわ
                     runAction(Sequence::create(AnimationManager::createRepeat(_data.name + "attack", 1),
-                                            CallFunc::create([=]()
-                                                             {
-                                                                 _isAttack = false;
-                                                                 _state = STAND;
-                                                             }),
-                                            NULL)); // 仮でwalkのアニメーションつかうわ
-                }
+                                                                                           CallFunc::create([=]()
+                                                                                                            {
+                                                                                                                _isAttack = false;
+                                                                                                                _state = STAND;
+                                                                                                            }),
+                                                                                           NULL)// 仮でwalkのアニメーションつかうわ
+                              );
+                                               }
                 break;
 
 			case DAMAGE:
 				if (isActionEnable("damage"))
 				{
-					runAction(Sequence::create(AnimationManager::createRepeat(_data.name + "damage", 1),
-											CallFunc::create([=]()
-															{
-																_isDamage = false;
-																_state = STAND;
-															}),
-											NULL));
-				}
+//					stateAnim = Sequence::create(AnimationManager::createRepeat(_data.name + "damage", 1),
+//											CallFunc::create([=]()
+//															{
+//																_isDamage = false;
+//																_state = STAND;
+//															}),
+//											NULL);
+                    
+                    runAction(Sequence::create(AnimationManager::createRepeat(_data.name + "damage", 1),
+                                               											CallFunc::create([=]()
+                                               															{
+                                               																_isDamage = false;
+                                               																_state = STAND;
+                                               															}),
+                                               											NULL)
+                                               );
+                              }
 				break;
                 
             default:
                 break;
         }
+//        if(stateAnim)
+//        {
+//            stateAnim->setTag(STATEANIM_TAG);
+//            runAction(stateAnim);
+//        }
     }
     
 }
@@ -559,10 +589,10 @@ Actor *Actor::hitCheckActor()
     for(auto child : ActorManager::getInstance()->getChildren())
     {
         Actor *actor = (Actor*)child;
-        if(actor != NULL && !actor->_isDestroy) continue;
+        if(actor != NULL && actor->_isDestroy) continue;
         if(actor->getName() == "") continue;
         if(actor == this) continue;
-        if(actor->_isDestroy) continue;
+        //if(actor->_isDestroy) continue;
         
         if(actor->getBoundingBox().intersectsRect(getBoundingBox()))
         {

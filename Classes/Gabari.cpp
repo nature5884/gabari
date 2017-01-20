@@ -108,6 +108,16 @@ void Gabari::update(float delta)
         }
     }
     
+    //無敵じゃなくする
+    if(_mutekiTimer > 0 && _isMuteki)
+    {
+        _mutekiTimer--;
+        if(_mutekiTimer == 0)
+        {
+            _isMuteki = false;
+        }
+    }
+    
     _isAttackPushed = false;
 }
 
@@ -119,14 +129,31 @@ void Gabari::damage(Actor *actor)
     }
     if(_atkMode != ATK_NONE) return;
     
-    if(_isMuteki) return;
+    if(_isMuteki){ return;}
+    else{log("hoge");}
     
     _mutekiCount = 0;
     _isMuteki = true;
     
     _hp --;
-    
+    _mutekiTimer = 60;
     damageEffect();
+}
+
+void Gabari::damageEffect()
+{
+    Color3B defColor = this->getColor();
+    this->runAction(Sequence::create(
+                                     CallFunc::create([=](){this->setColor(Color3B(255, 0, 0));}),
+                                     DelayTime::create(0.2f),
+                                     CallFunc::create([=](){this->setColor(Color3B(defColor));}),
+                                     DelayTime::create(0.2f),
+                                     CallFunc::create([=](){this->setColor(Color3B(255, 0, 0));}),
+                                     DelayTime::create(0.2f),
+                                     CallFunc::create([=](){this->setColor(Color3B(defColor));_isMuteki = false;}),
+                                     NULL
+                                     )
+                    );
 }
 
 void Gabari::attack()
